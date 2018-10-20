@@ -5,7 +5,7 @@ const { Client } = require('pg');
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   password: 'rahul',
-  database:'mydb'
+//   database:'mydb'
 });
 
 client.connect();
