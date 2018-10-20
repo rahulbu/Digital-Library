@@ -5,11 +5,19 @@ const { Client } = require('pg');
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   password: 'rahul',
-  database:'DATABASE'
+//   database:'DATABASE',
+  ssl: true,
 });
 
 client.connect();
 
+router.get("/psql",(req,res)=>{
+    client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, result) => {
+  if (err) throw err;
+    res.render("index",{res : result});
+
+});
+})
 // client.query('SELECT * from demo', (err, res) => {
 //   if (err) throw err;
 //   for (let row of res.rows) {
@@ -29,5 +37,6 @@ router.get("/",(req,res)=>{
 });
     // res.render("index");
 })
+
 
 module.exports = router;
