@@ -1,0 +1,16 @@
+<% include ./partials/header %>
+
+<h1>Index page</h1>
+
+<div class="container">
+    <% for (let row of res.rows) { %>
+    <li><%= JSON.stringify(row) %> </li>
+  <% } %>
+</div>
+
+
+
+
+
+
+<% include ./partials/footer %>
