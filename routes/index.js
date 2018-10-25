@@ -5,7 +5,7 @@ const { Client } = require('pg');
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   password: 'rahul',
-  database:'mydb',
+  database:'dbms',
   ssl: true,
 });
 
@@ -27,7 +27,7 @@ client.connect();
 // });
 
 router.get("/",(req,res)=>{
-    client.query('SELECT * from demo', (err, result) => {
+    client.query('SELECT * from student', (err, result) => {
   if (err) throw err;
   else     res.render("index",{res : result});
 //   for (let row of res.rows) {
@@ -70,3 +70,5 @@ router.get("/register",(req,res)=>{
 })
 
 module.exports = router;
+
+// sudo service postgresql start
