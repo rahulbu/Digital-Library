@@ -5,7 +5,7 @@
 
    
 
-
+<div class="container">
     <table class="ui sortable celled table">
   <thead>
     <tr>
@@ -16,10 +16,10 @@
   <tbody>
     
     <% for (let row of res.rows) { %>
-    <%= JSON.stringify(row) %>
+    <!--<%= JSON.stringify(row) %>-->
   <tr>
-      <td><%= row["name"] %></td>
-      <td><%= row["usn"] %></td>
+      <td><%= row["title"] %></td>
+      <td><%= row["lusn"] %></td>
   </tr>
   <% } %>
   <!--<tr>-->
@@ -39,6 +39,6 @@
   <!--  <th></th>-->
   <!--</tr></tfoot>-->
 </table>
-
+</div>
 
 <% include ./partials/footer %>

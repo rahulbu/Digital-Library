@@ -27,7 +27,7 @@ client.connect();
 // });
 
 router.get("/",(req,res)=>{
-    client.query('SELECT * from student', (err, result) => {
+    client.query('SELECT * from project', (err, result) => {
   if (err) throw err;
   else     res.render("index",{res : result});
 //   for (let row of res.rows) {
