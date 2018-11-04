@@ -1,4 +1,5 @@
 const router = require("express").Router(),
+    //  passport = require("passport"),
       client = require("./../db/index");
 
 
@@ -9,7 +10,7 @@ router.get("/",(req,res)=>{
 router.post("/",(req,res)=>{
     const usn = req.body.usn,
           password = req.body.password;
-    const query = "select * from student where usn =$1",
+    const query = "select password from student where usn =$1",
           values = [usn];
     client.query(query,values,(err,result)=>{
         if(err) res.redirect("/");
