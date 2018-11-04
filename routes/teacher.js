@@ -4,15 +4,22 @@ const router = require("express").Router();
 router.get("/",(req,res)=>{
     res.render("login");
 })
+router.get("/new",(req,res)=>{
+    res.render("teacher/new");
+})
+
 router.get("/:id",(req,res)=>{
     res.render("teacher/show");
 })
 router.get("/:id/edit",(req,res)=>{
     res.render("teacher/edit");
 })
+router.put("/:id",(req,res)=>{
+    res.redirect("/teacher/"+req.params.id);
+})
 
-router.get("/new",(req,res)=>{
-    res.render("teacher/new");
+router.post("/",(req,res)=>{
+    res.render("teacher/show");
 })
 
 

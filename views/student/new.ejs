@@ -4,6 +4,104 @@
 
 <h1>student new page</h1>
 
+    <div class="container">
+        <div class="row" style="text-align:center; ">
+            <h1>New Student details</h1>
+                <div style="width:30%; margin: 25px auto;" >
+                    <form method='post' action="/student/">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="name" placeholder="name" required>
+                            
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="usn" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" placeholder="usn" required>
+                        </div>
+                            
+                        <div class="form-group">
+                            <!--<div id="gender">-->
+                            <!--    <label for="gender">Gender</label>-->
+                            <!--    <div>-->
+                            <!--        <input type="radio" id="male" name="gender" value="male">-->
+                            <!--        <label for="male">Male</label>-->
+                            <!--        <input type="radio" id="female" name="gender" value="female">-->
+                            <!--        <label for="female">Female</label>-->
+                            <!--        <input type="radio" id="other" name="gender" value="other" checked>-->
+                            <!--        <label for="other">Other</label>-->
+                            <!--    </div>-->
+                            
+                            <!--</div>-->
+                            <select name="gender" class="form-control" >
+                                    <option value="">Gender</option>
+                                    <option value="O" >other</option>
+                                    <option value="M" >Male</option>
+                                    <option value="F" >Female</option>
+                                    
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <!--<input class="form-control" type="text" size="40" name="branch" placeholder="branch" list="branchlist" required>-->
+                            <!--<input type="email" size="40" list="defaultEmails">-->
+
+                            <!--<datalist id="branchlist">-->
+                            <!--  <option value="CSE" checked>-->
+                            <!--  <option value="ISE">-->
+                            <!--  <option value="ECE">-->
+                            <!--  <option value="ME">-->
+                            <!--  <option value="EEE">-->
+                            <!--</datalist>-->
+                            <select name="branch" class="form-control" >
+                                <optgroup label="ug">
+                                    <option value="CSE">Branch-CSE</option>
+                                    <option value="ISE">Branch-ISE</option>
+                                    <option value="ECE">Branch-ECE</option>
+                                    <option value="ME">Branch-ME</option>
+                                    <option value="EEE">Branch-EEE</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        
+                         <div class="form-group">
+                            <input class="form-control" type="text" name="email" pattern=".+@.+.com" placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="tel" name="phone" pattern="[0-9]{10}" placeholder="phone number">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" placeholder="Password" id="password" required>
+                            
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" placeholder="Confirm Password" id="confirm_password" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="reset" class="btn btn-lg btn-danger btn-block">Reset</button>
+                        </div>
+                        
+                        
+                    </form>
+                </div>
+        </div>
+    </div>
+
+<script>
+    var password = document.getElementById("password"), 
+        confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+      if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+    
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
 
 
 
