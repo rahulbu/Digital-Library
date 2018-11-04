@@ -1,12 +1,25 @@
-const router = require("express").Router();
+const router = require("express").Router(),
+      client = require("./../db/index");
 
 
 
 router.get("/",(req,res)=>{
     res.render("student/login");
 })
-router.post("/",(res,req)=>{
-    res.redirect("/student/"+req.body.username);
+router.post("/",(req,res)=>{
+    const usn = req.body.usn,
+          password = req.body.password;
+    const query = "select * from student where usn =$1",
+          values = [usn];
+    client.query(query,values,(err,result)=>{
+        if(err) res.redirect("/");
+        else{
+            console.log(result.rows[0]);
+            if(result.rows[0].password == password)
+                res.redirect("/student/"+usn);
+            else res.redirect("/");
+        }
+    })
 })
 
 router.get("/new",(req,res)=>{
@@ -14,30 +27,73 @@ router.get("/new",(req,res)=>{
 })
 
 router.get("/:id",(req,res)=>{
-    res.render("student/show");
+    const usn = req.params.id;
+    const query = "select * from student where usn =$1",
+          values = [usn];
+    client.query(query,values,(err,result)=>{
+        if(err) res.redirect("/");
+        else
+              res.render("student/show",{student : result.rows[0]});
+    })
 })
+// router.post("/:id",(res,req)=>{
+//     res.redirect("/student/"+req.body.username);
+// })
 router.get("/:id/edit",(req,res)=>{
-    res.render("student/edit");
+    const usn = req.params.id,
+          values = [usn];
+    const query = "select * from student where usn = $1";
+    client.query(query,values,(err,result)=>{
+        if(err) res.redirect("/student");
+        else res.render("student/edit",{row : result});
+    })
 })
 router.put("/:id",(req,res)=>{
-    res.redirect("/student/"+req.params.id);
+    const name = req.body.name,
+      usn = req.params.id,
+      gender = req.body.gender,
+      branch = req.body.branch,
+      email = req.body.email,
+      phone = req.body.phone,
+      password = req.body.password,
+      query = "update table student set branch = $1, name=$2, gender=$3, email=$4, phone=$5, password=$6 where usn=$7",
+      values = [branch,name,gender,email,phone,password,usn];
+      
+      client.query(query,values,(err,result)=>{
+          if(err) res.redirect("/student");
+          else res.redirect("/student/"+req.params.id);
+      })
 })
 
 
-router.post("/",(req,res)=>{
-    var name = req.body.name;
-    var usn = req.body.usn;
-    var gender = req.body.gender;
-    var branch = req.body.branch;
-    var email = req.body.email;
-    var student = {
-        name : name,
-        usn : usn,
-        gender : gender,
-        branch : branch,
-        email : email
-    }
-    res.render("student/show",{student : student});
+router.post("/new",(req,res)=>{
+     const   name = req.body.name,
+             usn = req.body.usn,
+             gender = req.body.gender,
+             branch = req.body.branch,
+             email = req.body.email,
+             phone = req.body.phone,
+             password = req.body.password;
+            //  student = {
+            //     name : name,
+            //     usn : usn,
+            //     gender : gender,
+            //     branch : branch,
+            //     email : email
+            // };
+    const values = [name,usn,gender,branch,email,phone,password];
+    const query = "insert into student(name,usn,gender,branch,email,phone,password) values($1,$2,$3,$4,$5,$6,$7) returning *";
+    client.query(query,values,(err,result)=>{
+        if(err) {
+            console.log(err);
+            res.redirect("/student/new");
+        }
+        else {
+            // console.log(result.rows[0]);
+            res.render("student/show",{student : result.rows});
+        }
+    })
+    
 })
 
 

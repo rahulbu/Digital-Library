@@ -1,4 +1,5 @@
-const router = require("express").Router();
+const router = require("express").Router(),
+      client = require("./../db/index") ;
 
 // const { Client } = require('pg');
 
@@ -27,17 +28,17 @@ const router = require("express").Router();
 // });
 
 router.get("/",(req,res)=>{
-  //   client.query('SELECT * from project', (err, result) => {
-  // if (err) throw err;
-  // else     
-  res.render("index");
+    client.query('SELECT * from project', (err, result) => {
+  if (err) throw err;
+  else     
+  res.render("index",{res : result});
 //   for (let row of res.rows) {
 //     console.log(JSON.stringify(row));
 //   }
   //client.end();
 });
     // res.render("index");
-// })
+})
 
 
 /////////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@
         <div class="row" style="text-align:center; ">
             <h1>New Student details</h1>
                 <div style="width:30%; margin: 25px auto;" >
-                    <form method='post' action="/student/">
+                    <form method='post' action="/student/new">
                         <div class="form-group">
                             <input class="form-control" type="text" name="name" placeholder="name" required>
                             
@@ -51,11 +51,11 @@
                             <!--</datalist>-->
                             <select name="branch" class="form-control" >
                                 <optgroup label="ug">
-                                    <option value="CSE">Branch-CSE</option>
-                                    <option value="ISE">Branch-ISE</option>
-                                    <option value="ECE">Branch-ECE</option>
-                                    <option value="ME">Branch-ME</option>
-                                    <option value="EEE">Branch-EEE</option>
+                                    <option value="cse">Branch-CSE</option>
+                                    <option value="ise">Branch-ISE</option>
+                                    <option value="ece">Branch-ECE</option>
+                                    <option value="me">Branch-ME</option>
+                                    <option value="eee">Branch-EEE</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -65,7 +65,7 @@
                             <input class="form-control" type="text" name="email" pattern=".+@.+.com" placeholder="example@email.com">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="tel" name="phone" pattern="[0-9]{10}" placeholder="phone number">
+                            <input class="form-control" type="tel" name="phone" minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="phone number">
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="password" name="password" placeholder="Password" id="password" required>
