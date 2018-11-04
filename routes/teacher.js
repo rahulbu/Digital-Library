@@ -2,7 +2,10 @@ const router = require("express").Router();
 
 
 router.get("/",(req,res)=>{
-    res.render("login");
+    res.render("teacher/login");
+})
+router.post("/",(req,res)=>{
+    res.redirect("/teacher/"+req.body.username);
 })
 router.get("/new",(req,res)=>{
     res.render("teacher/new");
