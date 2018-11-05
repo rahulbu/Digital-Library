@@ -1,5 +1,6 @@
 const router = require("express").Router(),
       passport = require("passport"),
+      middlewareStudent = require("./../middleware/index"),
       client = require("./../db/index");
 
 
@@ -35,7 +36,7 @@ router.get("/new",(req,res)=>{
     res.render("student/new");
 })
 
-router.get("/:id",(req,res)=>{
+router.get("/:id",middlewareStudent.isLoggedIn,(req,res)=>{
     const usn = req.params.id;
     const query = "select * from student where usn =$1",
           values = [usn];
@@ -97,10 +98,11 @@ router.post("/new",(req,res)=>{
             console.log(err);
             res.redirect("/student/new");
         }
-        else {
-            // console.log(result.rows[0]);
+        else passport.authenticate("local")(req,res,function(){
             res.render("student/show",{student : result.rows});
-        }
+        })
+            // console.log(result.rows[0]);
+            
     })
     
 })
