@@ -1,5 +1,5 @@
 const router = require("express").Router(),
-    //  passport = require("passport"),
+      passport = require("passport"),
       client = require("./../db/index");
 
 
@@ -7,21 +7,29 @@ const router = require("express").Router(),
 router.get("/",(req,res)=>{
     res.render("student/login");
 })
-router.post("/",(req,res)=>{
-    const usn = req.body.usn,
-          password = req.body.password;
-    const query = "select password from student where usn =$1",
-          values = [usn];
-    client.query(query,values,(err,result)=>{
-        if(err) res.redirect("/");
-        else{
-            console.log(result.rows[0]);
-            if(result.rows[0].password == password)
-                res.redirect("/student/"+usn);
-            else res.redirect("/");
-        }
-    })
-})
+// router.post("/",(req,res)=>{
+//     const usn = req.body.usn,
+//           password = req.body.password;
+//     const query = "select password from student where usn =$1",
+//           values = [usn];
+//     client.query(query,values,(err,result)=>{
+//         if(err) res.redirect("/");
+//         else{
+//             console.log(result.rows[0]);
+//             if(result.rows[0].password == password)
+//                 res.redirect("/student/"+usn);
+//             else res.redirect("/");
+//         }
+//     })
+// })
+
+router.post("/",passport.authenticate("local",
+{
+    // successRedirect : "/projects",
+    failureRedirect : "/"
+}), function(req,res){
+    res.redirect("/student/"+req.body.usn)
+});
 
 router.get("/new",(req,res)=>{
     res.render("student/new");
@@ -95,6 +103,12 @@ router.post("/new",(req,res)=>{
         }
     })
     
+})
+
+
+router.get("/logout",function(req,res){
+    req.logout();
+    res.redirect("/");
 })
 
 
