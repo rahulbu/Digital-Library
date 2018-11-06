@@ -1,10 +1,10 @@
 <% include ../partials/header %>
 
-
-
-
 <h1>project show page</h1>
 
-
+<%= JSON.stringify(result) %>
+<% team.rows.forEach(function(row){ %>
+    <li><%= JSON.stringify(row) %></li>
+<% }) %>
 
 <% include ../partials/footer %>

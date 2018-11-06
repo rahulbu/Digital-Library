@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+
+
+<h1>project index page</h1>
+
+
+<div class="container">
+    <table class="ui sortable celled table">
+  <thead>
+    <tr>
+      <th class="sorted descending">Name</th>
+      <th>Usn</th>
+      <th>Area</th>
+      <th>last modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <% for (let row of res.rows) { %>
+    <!--<%= JSON.stringify(row) %>-->
+  <tr>
+      <td><%= row.title %></td>
+      <td><%= row["lusn"] %></td>
+      <td><%= row["area"] %></td>
+      <td><%= row["submission"] %></td>
+  </tr>
+  <% } %>
+</table>
+</div>
+
+<% include ../partials/footer %>

@@ -65,12 +65,12 @@ passport.serializeUser(function(user, done){
 		done(null, user)
 	})
 passport.deserializeUser(function(user, done){
-	db.query('SELECT usn as id, name as username FROM student WHERE usn = $1', [user.id], (err, results) => {
+	db.query("SELECT usn as id, name as username, 'student' as type FROM student WHERE usn = $1", [user.id], (err, results) => {
 		if(err) {
  			return done(err)
 		}
 		if(results.rows.length <= 0){
-		    db.query('SELECT id, name as username FROM teacher WHERE id = $1', [user.id], (error, ress) => {
+		    db.query("SELECT id, name as username, 'teacher' as type FROM teacher WHERE id = $1", [user.id], (error, ress) => {
                 if(error) return done(err);
                 done(null,ress.rows[0])
             })

@@ -4,6 +4,56 @@
 
 <h1>project new</h1>
 
+<div class="container">
+    <form method='post' action="/projects/new">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input class="form-control" type="text" name="lusn" placeholder="team leader usn" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" required>
+            </div>
+            <div class="form-group col-md-6">
+                <select class="form-control" name="area">
+                    
+                    <option value="dbms">DBMS</option>
+                    <option value="cn">Computer networks</option>
+                    <option value="cg">Computer graphics</option>
+                    <option value="web">Web</option>
+                    <option value="and">Android</option>
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <input class="form-group form-control" type="text" name="title" placeholder="title" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <textarea class="form-control" name="description" rows="3">project description</textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input class="form-control" type="url" name="github" placeholder="github link">
+            </div>
+            <div class="form-group col-md-6">
+                <input class="form-control" type="url" name="website" placeholder="website">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input class="form-control" type="url" name="report" placeholder="report link" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <input class="form-control" type="text" name="supervision" placeholder="teacher usn"  minlength="10" maxlength="10">
+            </div>
+        </div>
+        
+        <div class="form-row form-group">
+            <button class="col btn btn-primary" type="submit">Submit</button>
+            <button class="col btn btn-danger" type="reset">Reset</button>
+        </div>
+
+    </form>
+</div>
 
 
 
