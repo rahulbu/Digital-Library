@@ -1,17 +1,17 @@
 const db = require("./../db/index");
 
-var middlewareStudent={};
+var middleware={};
 
 
-middlewareStudent.isLoggedIn = function(req,res, next){
+middleware.isLoggedIn = function(req,res, next){
   if(req.isAuthenticated()) {
       return next();
   } else{
     // req.flash("error","you need to be logged in to proceed ...");
-    res.redirect("/student/");
+    res.redirect("/");
   }
 };
 
 
 
-module.exports = middlewareStudent;
+module.exports = middleware;

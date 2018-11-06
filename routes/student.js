@@ -1,6 +1,6 @@
 const router = require("express").Router(),
       passport = require("passport"),
-      middlewareStudent = require("./../middleware/index"),
+      middleware = require("./../middleware/index"),
       client = require("./../db/index");
 
 
@@ -31,50 +31,9 @@ router.post("/",passport.authenticate("local",
 }), function(req,res){
     res.redirect("/student/"+req.body.usn)
 });
-
 router.get("/new",(req,res)=>{
     res.render("student/new");
 })
-
-router.get("/:id",middlewareStudent.isLoggedIn,(req,res)=>{
-    const usn = req.params.id;
-    const query = "select * from student where usn =$1",
-          values = [usn];
-    client.query(query,values,(err,result)=>{
-        if(err) res.redirect("/");
-        else
-              res.render("student/show",{student : result.rows[0]});
-    })
-})
-// router.post("/:id",(res,req)=>{
-//     res.redirect("/student/"+req.body.username);
-// })
-router.get("/:id/edit",(req,res)=>{
-    const usn = req.params.id,
-          values = [usn];
-    const query = "select * from student where usn = $1";
-    client.query(query,values,(err,result)=>{
-        if(err) res.redirect("/student");
-        else res.render("student/edit",{row : result});
-    })
-})
-router.put("/:id",(req,res)=>{
-    const name = req.body.name,
-      usn = req.params.id,
-      gender = req.body.gender,
-      branch = req.body.branch,
-      email = req.body.email,
-      phone = req.body.phone,
-      password = req.body.password,
-      query = "update table student set branch = $1, name=$2, gender=$3, email=$4, phone=$5, password=$6 where usn=$7",
-      values = [branch,name,gender,email,phone,password,usn];
-      
-      client.query(query,values,(err,result)=>{
-          if(err) res.redirect("/student");
-          else res.redirect("/student/"+req.params.id);
-      })
-})
-
 
 router.post("/new",(req,res)=>{
      const   name = req.body.name,
@@ -99,7 +58,7 @@ router.post("/new",(req,res)=>{
             res.redirect("/student/new");
         }
         else passport.authenticate("local")(req,res,function(){
-            res.render("student/show",{student : result.rows});
+            res.render("student/show",{student : result.rows[0]});
         })
             // console.log(result.rows[0]);
             
@@ -107,11 +66,52 @@ router.post("/new",(req,res)=>{
     
 })
 
-
-router.get("/logout",function(req,res){
-    req.logout();
-    res.redirect("/");
+router.get("/:id",middleware.isLoggedIn,(req,res)=>{
+    const usn = req.params.id;
+    const query = "select * from student where usn =$1",
+          values = [usn];
+    client.query(query,values,(err,result)=>{
+        if(err) res.redirect("/");
+        else
+              res.render("student/show",{student : result.rows[0]});
+    })
 })
+// router.post("/:id",(res,req)=>{
+//     res.redirect("/student/"+req.body.username);
+// })
+router.get("/:id/edit",(req,res)=>{
+    const usn = req.params.id,
+          values = [usn];
+    const query = "select * from student where usn = $1";
+    client.query(query,values,(err,result)=>{
+        if(err) res.redirect("/student");
+        else res.render("student/edit",{row : result.rows[0]});
+    })
+})
+router.put("/:id",middleware.isLoggedIn,(req,res)=>{
+    const name = req.body.name,
+      usn = req.params.id,
+      gender = req.body.gender,
+      branch = req.body.branch,
+      email = req.body.email,
+      phone = req.body.phone,
+      password = req.body.password,
+      query = "update table student set branch = $1, name=$2, gender=$3, email=$4, phone=$5, password=$6 where usn=$7",
+      values = [branch,name,gender,email,phone,password,usn];
+      
+      client.query(query,values,(err,result)=>{
+          if(err) res.redirect("/student");
+          else res.redirect("/student/"+req.params.id);
+      })
+})
+
+
+
+
+// router.get("/logout",function(req,res){
+//     req.logout();
+//     res.redirect("/");
+// })
 
 
 module.exports = router;

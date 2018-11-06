@@ -39,7 +39,11 @@ router.get("/",(req,res)=>{
 });
     // res.render("index");
 })
-
+router.get("/logout",function(req,res){
+    console.log("hurray")
+    req.logOut();
+    res.redirect("/");
+})
 
 /////////////////////////////////////////////////////////////////////////////////
 // const { Client } = require('pg');

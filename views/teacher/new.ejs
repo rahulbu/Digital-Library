@@ -8,12 +8,12 @@
         <div class="row" style="text-align:center; ">
             <h1>New Teacher details</h1>
                 <div style="width:30%; margin: 25px auto;" >
-                    <form method='post' action="/teacher/">
+                    <form method='post' action="/teacher/new">
                         <div class="form-group">
                             <input class="form-control" type="text" name="name" placeholder="name" required>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="text" name="id" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" placeholder="usn" required>
+                            <input class="form-control" type="text" name="usn" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" placeholder="usn" required>
                         </div>
                         <!--<div class="form-group">-->
                         <!--    <select name="gender" class="form-control" >-->
@@ -26,11 +26,11 @@
                         <div class="form-group">
                             <select name="branch" class="form-control" >
                                 <optgroup label="ug">
-                                    <option value="CSE">Branch-CSE</option>
-                                    <option value="ISE">Branch-ISE</option>
-                                    <option value="ECE">Branch-ECE</option>
-                                    <option value="ME">Branch-ME</option>
-                                    <option value="EEE">Branch-EEE</option>
+                                    <option value="cse">Branch-CSE</option>
+                                    <option value="ise">Branch-ISE</option>
+                                    <option value="ece">Branch-ECE</option>
+                                    <option value="me">Branch-ME</option>
+                                    <option value="eee">Branch-EEE</option>
                                 </optgroup>
                             </select>
                         </div>
