@@ -46,7 +46,7 @@ router.get("/:id",middleware.isLoggedIn,(req,res)=>{
         console.log("no project");
         res.redirect("/projects");
       } else {
-          db.query("select usn from team where pid = $1",values,function(err,row){
+          db.query("select * from team where pid = $1",values,function(err,row){
             if(err) console.log(err);
             else {
               db.query("select * from marks m where usn in (select usn from team t where t.pid=$1) and m.pid = $1",values,function(err,marks){
