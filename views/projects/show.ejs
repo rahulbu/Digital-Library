@@ -37,9 +37,37 @@
       <td><%= row["usn"] %>
         <% if(currentUser.type == "teacher" && currentUser.id != row.valued_by) { %>
           <button>add</button>
+          <form action="/marks/<%= result.pid %>" method='post'>
+            <div class="ui form">
+              <div class="inline fields">
+                <div class="field">
+                  <input type="hidden" name="pid" value="<%= result.pid %>" disabled>
+                </div>
+                <div class="field">
+                  <input type="text" name="usn" value="<%= row.usn %>" disabled>
+                </div>
+                <div class="field">
+                  <input type="number" name="demo" placeholder="demonstration" min="0" max="15">
+                </div>
+                <div class="field">
+                  <input type="number" name="viva"  placeholder="viva" min="0" max="5">
+                </div>
+                <div class="field">
+                  <input type="number" name="report" placeholder="report" min="0" max="10">
+                </div>
+                <div class="field">
+                  <input type="text" name="valued" value="<%= row.valued_by %>" disabled>
+                </div>
+              </div>
+            </div>
+          </form>
         <% } if(currentUser.id == row.valued_by) { %>
           <button>edit</button>
+          
           <button>delete</button>
+          <form method='post' action="/marks/<%= result.pid %>?_method=DELETE">
+            <input type="submit" class="btn btn-danger" value="delete">
+          </form>
         <% } %>
       </td>
       <td><%= row["demonstration"] %></td>

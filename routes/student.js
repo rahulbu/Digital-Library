@@ -66,7 +66,7 @@ router.post("/new",(req,res)=>{
     
 })
 
-router.get("/:id",middleware.checkStudent,(req,res)=>{
+router.get("/:id",middleware.isLoggedIn,(req,res)=>{
     const usn = req.params.id;
     const query = "select * from student where usn =$1",
           values = [usn];

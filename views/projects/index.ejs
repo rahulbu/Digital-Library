@@ -19,8 +19,8 @@
     <% for (let row of res.rows) { %>
     <!--<%= JSON.stringify(row) %>-->
   <tr>
-      <td><%= row.title %></td>
-      <td><%= row["lusn"] %></td>
+      <td><a href="/projects/<%= row.pid %>"><%= row.title %></a></td>
+      <td><a href="/student/<%= row.lusn %>"><%= row["lusn"] %></a></td>
       <td><%= row["area"] %></td>
       <td><%= row["submission"] %></td>
   </tr>

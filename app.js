@@ -16,6 +16,7 @@ app.use(helmet());
 const indexRoute = require("./routes/index"),
       projectRoute = require("./routes/project"),
       teacherRoute = require("./routes/teacher"),
+      marksRoute = require("./routes/marks"),
       studentRoute = require("./routes/student");
 
 
@@ -93,7 +94,7 @@ app.use(indexRoute);
 app.use("/teacher",teacherRoute);
 app.use("/student",studentRoute);
 app.use("/projects",projectRoute);
-
+app.use("/marks",marksRoute);
 
 app.get("/logout",function(req,res){
     req.logOut();
