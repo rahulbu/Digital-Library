@@ -1,10 +1,56 @@
 <% include ../partials/header %>
 
 <h1>project show page</h1>
+<div class="container">
+   
+        <%= JSON.stringify(result) %>
+         <div class="container">
+        <% team.rows.forEach(function(row){ %>
+            <li><a href="/student/<%= row.usn %>"><%= row.usn %></a></li>
+        <% }) %>
+    </div>
+    <div class="segment">
+        <% for(let member of team.rows){ %>
+            <% for(let mark of marks.rows){ %>
+                <% if(member.usn== mark.usn){ %>
+                <li><%= mark.usn %> and <%= mark.total %></li>
+            <% } } }%>
+    </div>
+</div>
 
-<%= JSON.stringify(result) %>
-<% team.rows.forEach(function(row){ %>
-    <li><%= JSON.stringify(row) %></li>
-<% }) %>
+<div class="container">
+    <table class="ui sortable celled table">
+  <thead>
+    <tr>
+      <th>usn</th>
+      <th>demonstration</th>
+      <th>viva</th>
+      <th>report</th>
+      <th>total</th>
+      <th>valued_by</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <% for (let row of marks.rows) { %>
+  <tr>
+      <td><%= row["usn"] %>
+        <% if(currentUser.type == "teacher" && currentUser.id != row.valued_by) { %>
+          <button>add</button>
+        <% } if(currentUser.id == row.valued_by) { %>
+          <button>edit</button>
+          <button>delete</button>
+        <% } %>
+      </td>
+      <td><%= row["demonstration"] %></td>
+      <td><%= row["viva"] %></td>
+      <td><%= row["report"] %></td>
+      <td><%= row["total"] %></td>
+      <td><%= row["valued_by"] %></td>
+  </tr>
+  <% } %>
+</table>
+</div>
+
 
 <% include ../partials/footer %>

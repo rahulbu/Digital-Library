@@ -48,7 +48,12 @@ router.get("/:id",middleware.isLoggedIn,(req,res)=>{
       } else {
           db.query("select usn from team where pid = $1",values,function(err,row){
             if(err) console.log(err);
-            else res.render("projects/show",{result : result.rows[0], team : row})
+            else {
+              db.query("select * from marks m where usn in (select usn from team t where t.pid=$1) and m.pid = $1",values,function(err,marks){
+                if(err) console.log(err);
+                else res.render("projects/show",{result : result.rows[0], team : row, marks : marks})
+              })
+            }
           })
       }
     })
