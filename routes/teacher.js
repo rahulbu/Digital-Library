@@ -41,7 +41,7 @@ router.post("/new",(req,res)=>{
         else{ console.log("yo yo")
             passport.authenticate("local")(req,res,function(){
             console.log("i am here")
-            res.render("teacher/show",{teacher : result.rows[0]});
+            res.redirect("/teacher/"+req.user.id);
         })
             }
             
@@ -55,8 +55,18 @@ router.get("/:id",middleware.checkTeacher ,(req,res)=>{
           values = [usn];
     client.query(query,values,(err,result)=>{
         if(err) res.redirect("/");
-        else
-              res.render("teacher/show",{teacher : result.rows[0]});
+        else{
+            client.query("select t.*, p.title, s.name from team t, project p, student s where t.pid = p.pid and t.usn=s.usn",[],function(err,team){
+                if(err) console.log(err);
+                else {
+                    client.query("select m.*, s.name, p.title from marks m, project p, student s where m.pid=p.pid and m.usn=s.usn order by m.valued_by",[],(err,valued)=>{
+                        if(err) console.log(err);
+                        else res.render("teacher/show",{teacher : result.rows[0], team : team, valued : valued});
+                    })
+                }
+            })
+        }
+            //   res.render("teacher/show",{teacher : result.rows[0]});
     })
 })
 router.get("/:id/edit", middleware.checkTeacher,(req,res)=>{

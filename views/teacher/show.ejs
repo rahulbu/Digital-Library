@@ -3,9 +3,18 @@
 
 
 <h1>teacher show page</h1>
-
+<a class="btn btn-primary" href="/teacher/<%= currentUser.id %>/edit">Edit profile</a>
 <%= JSON.stringify(teacher) %>
 
+<br>
+<% team.rows.forEach(function(row){ %>
+    <li><%= JSON.stringify(row) %></li>
+<% }) %>
+
+<br>
+<% valued.rows.forEach(function(row){ %>
+    <li><%= JSON.stringify(row) %></li>
+<% }) %>
 
 
 <% include ../partials/footer %>

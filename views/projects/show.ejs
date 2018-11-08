@@ -1,6 +1,16 @@
 <% include ../partials/header %>
 
 <h1>project show page</h1>
+
+<% if(result.lusn == currentUser.id) { %>
+<a class="btn btn-primary" href="/projects/<%= result.pid %>/edit" >Edit project</a>
+<form method='post' action="/projects/<%= result.pid %>?_method=DELETE">
+  <input class="hidden" name="pid" value="<%= result.pid %>" >
+  <input class="btn btn-danger" type="submit" value="delete" >
+</form>
+<% } %>
+
+
 <div class="container">
    
         <%= JSON.stringify(result) %>
@@ -32,19 +42,20 @@
   </thead>
   <tbody>
     
-    <% for (let row of marks.rows) { %>
-  <tr>
-      <td><%= row["usn"] %>
-        <% if(currentUser.type == "teacher" && currentUser.id != row.valued_by) { %>
+    <% if(currentUser.type == "teacher") { %>
           <button>add</button>
           <form action="/marks/<%= result.pid %>" method='post'>
             <div class="ui form">
               <div class="inline fields">
                 <div class="field">
-                  <input type="hidden" name="pid" value="<%= result.pid %>" disabled>
+                  <input type="hidden" name="pid" value="<%= result.pid %>" >
                 </div>
                 <div class="field">
-                  <input type="text" name="usn" value="<%= row.usn %>" disabled>
+                  <select name="usn">
+                     <% for(let member of team.rows){ %>
+                     <option value="<%= member.usn %>"><%= member.usn %></option>
+                     <% } %>
+                  </select>
                 </div>
                 <div class="field">
                   <input type="number" name="demo" placeholder="demonstration" min="0" max="15">
@@ -56,16 +67,51 @@
                   <input type="number" name="report" placeholder="report" min="0" max="10">
                 </div>
                 <div class="field">
-                  <input type="text" name="valued" value="<%= row.valued_by %>" disabled>
+                  <input type="hidden" name="valued" value="<%= currentUser.id %>" >
                 </div>
+                <input type="submit" class="btn btn-primary" value="submit">
               </div>
             </div>
           </form>
-        <% } if(currentUser.id == row.valued_by) { %>
-          <button>edit</button>
+        <% } %>
+    
+    <% for (let row of marks.rows) { %>
+  <tr>
+      <td><%= row["usn"] %>
+
+        <%  if(currentUser.id == row.valued_by) { %>
+        <button>edit</button>
+          <form action="/marks/<%= result.pid %>?_method=PUT" method='post'>
+            <div class="ui form">
+              <div class="inline fields">
+                <div class="field">
+                  <input type="hidden" name="pid" value="<%= result.pid %>" >
+                </div>
+                <div class="field">
+                  <input class="hidden" value="<%= row.usn %>" name="usn">
+                </div>
+                <div class="field">
+                  <input type="number" name="demo" value="<%= row.demonstration %>" min="0" max="15">
+                </div>
+                <div class="field">
+                  <input type="number" name="viva"  value="<%= row.viva %>" min="0" max="5">
+                </div>
+                <div class="field">
+                  <input type="number" name="report" value="<%= row.report %>" min="0" max="10">
+                </div>
+                <div class="field">
+                  <input type="hidden" name="valued" value="<%= currentUser.id %>" >
+                </div>
+                <input type="submit" class="btn btn-primary" value="submit">
+              </div>
+            </div>
+          </form>
           
-          <button>delete</button>
+         
           <form method='post' action="/marks/<%= result.pid %>?_method=DELETE">
+             <input type="hidden" name="pid" value="<%= result.pid %>" >
+              <input type="hidden" name="valued" value="<%= row.valued_by %>" >
+             <input type="hidden" name="usn" value="<%= row.usn %>" >
             <input type="submit" class="btn btn-danger" value="delete">
           </form>
         <% } %>
@@ -88,3 +134,6 @@
 
 <script type="text/javascript" src="/public/main.js"></script>
 <% include ../partials/footer %>
+
+
+

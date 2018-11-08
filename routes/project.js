@@ -16,10 +16,10 @@ router.get("/",(req,res)=>{
 
 
 
-router.get("/new",middleware.isLoggedIn ,(req,res)=>{
+router.get("/new",middleware.checkStudent ,(req,res)=>{
     res.render("projects/new");
 })
-router.post("/new",middleware.isLoggedIn,(req,res)=>{
+router.post("/new",middleware.checkStudent,(req,res)=>{
   const lusn = req.body.lusn,
         title = req.body.title,
         description = req.body.description,
@@ -49,7 +49,7 @@ router.get("/:id",middleware.isLoggedIn,(req,res)=>{
           db.query("select * from team where pid = $1",values,function(err,row){
             if(err) console.log(err);
             else {
-              db.query("select * from marks m where usn in (select usn from team t where t.pid=$1) and m.pid = $1",values,function(err,marks){
+              db.query("select * from marks m where usn in (select usn from team t where t.pid=$1) and m.pid = $1 order by m.valued_by",values,function(err,marks){
                 if(err) console.log(err);
                 else res.render("projects/show",{result : result.rows[0], team : row, marks : marks})
               })
@@ -95,7 +95,23 @@ router.put("/:id",middleware.checkStudent, (req,res)=>{
 })
 
 
+router.delete("/:id",middleware.checkStudent,(req,res)=>{
+  const pid = req.body.pid;
 
+    const values = [pid];
+    console.log(values);
+    const query = "delete from project where pid=$1";
+    db.query(query,values,(err,result)=>{
+        if(err){
+            console.log(err.detail);
+            res.redirect("back");
+        } else {
+            console.log("deleted")
+        
+            res.redirect("/student/"+req.user.id);
+        }
+    })
+})
 
 
 module.exports = router;

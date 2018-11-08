@@ -4,31 +4,20 @@
 
 <h1>student show page</h1>
 
+<% if(student.usn == currentUser.id) { %>
+<a class="btn btn-primary" href="/student/<%= currentUser.id %>/edit">Edit profile</a>
+
+
+<a class="btn btn-primary" href="/projects/new">add Project</a></a>
+<% } %>
+
 <%= JSON.stringify(student) %>
 
+<br>
+<% projects.rows.forEach(function(row){ %>
+    <li><%= JSON.stringify(row) %></li>
+<% }) %>
 
-<div class="ui grid">
-  <div class="four wide column">
-    <div class="ui vertical fluid tabular menu">
-      <a class="item">
-        Bio
-      </a>
-      <a class="item">
-        Pics
-      </a>
-      <a class="item">
-        Companies
-      </a>
-      <a class="item active">
-        Links
-      </a>
-    </div>
-  </div>
-  <div class="twelve wide stretched column">
-    <div class="ui segment">
-      This is an stretched grid column. This segment will always match the tab height
-    </div>
-  </div>
-</div>
+
 
 <% include ../partials/footer %>
