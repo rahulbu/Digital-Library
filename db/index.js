@@ -19,8 +19,9 @@ const { Pool } = require('pg')
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    password: 'rahul',
-    database:'dbms',
+    // password: 'rahul',
+    // database:'dbms',
+    ssl:true,
 })
 
 module.exports = {
@@ -32,4 +33,5 @@ module.exports = {
 
 
 
-
+// Created postgresql-curved-20152 as DATABASE_URL
+// Use heroku addons:docs heroku-postgresql to view documentation
