@@ -83,18 +83,40 @@
                     <a class="navbar-brand" href="/">Home</a>
                     <!--<a class="navbar-brand" href="/student" >student</a>-->
                     <a class="navbar-brand" href="/projects">Projects</a>
+                   <!--<span class="text-center navbar-text ">-->
+                   <!--      <div id="flash_message">   -->
+                   <!--         <% if(error && error.length > 0){ %>-->
+                            <!--<div class="container">-->
+                                <!--<div class="alert alert-danger" role = "alert">-->
+                   <!--                 <%= error %>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                   <!--         <% } %>-->
+                   <!--         <% if(success && success.length > 0) { %>-->
+                            <!--<div class="container">-->
+                                <!--<div class="alert alert-success" role = "alert">-->
+                   <!--                 <%= success %>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                   <!--         <% } %>-->
+                   <!--     </div>                   -->
+                   <!--</span>-->
                 </div>
+                
+                    
+                
                 <div class="collapse navbar-collapse" id="data">
                     <ul class="nav navbar-nav navbar-right">
                         <% if(!currentUser) { %>
-                            <li>
+                            <!--<li>-->
                               <!--<a href="/login">Login</a>-->
-                              <a href="/student" >Student</a>
-                            </li>
+                            <!--  <a href="/student" >Student</a>-->
+                            <!--</li>-->
+                            <li><a href="/login">Login</a></li>
                             <!--<li><a href="/register">Signup</a></li>-->
-                            <li>
-                                <a href="/teacher" >Teacher</a>
-                            </li>
+                            <!--<li>-->
+                            <!--    <a href="/teacher" >Teacher</a>-->
+                            <!--</li>-->
                         <% } else { %>
                             <li>
                                 <a href="/<%= currentUser.type %>/<%= currentUser.id %>">Signed in as <%= currentUser.username %></a>
@@ -107,3 +129,19 @@
             </div>
         </nav>
             
+     <div id="flash_message">   
+        <% if(error && error.length > 0){ %>
+        <!--<div class="container">-->
+            <div class="alert alert-danger" role = "alert">
+                <h4><%= error %></h4>
+            </div>
+        <!--</div>-->
+        <% } %>
+        <% if(success && success.length > 0) { %>
+        <!--<div class="container">-->
+            <div class="alert alert-success" role = "alert">
+                <h4><%= success %></h4>
+            </div>
+        <!--</div>-->
+        <% } %>
+    </div>

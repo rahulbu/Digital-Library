@@ -1,47 +1,48 @@
 <% include ./partials/header %>
+<style>
+  #content{
+	text-align: center;
+	padding-top: 180px;
+	text-shadow: 0px  4px 3px rgba(0,0,0,0.4),
+ 				 0px 8px 13px rgba(0,0,0,0.1),
+ 				 0px 18px 23px rgba(0,0,0,0.1);
+}
+body{
+	background: url(https://images.unsplash.com/photo-1516992654410-9309d4587e94?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=570bee7146e6d3a98d62d5caef676bce&auto=format&fit=crop&w=1050&q=80);
+	background-size: cover;
+	background-position: center;
+	font-family: 'Lato', sans-serif;
+	color: white;
 
-<h1>Index page</h1>
+}
+h1{
+	font-weight: 700;
+	font-size: 5em;
+	
+}
+html{
+	height: 100%;
+}
+hr{
+	width: 400px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0,0,0,0.5)
+}
+</style>
 
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div id="content">
+			<h1>Projects Dump Yard</h1>
+			<h3>a project database management system</h3>
+			<hr>
+			<a class="btn btn-default btn-lg" href="/projects/">Projects</a>
+		</div>
+		</div>
+	</div>
+</div>
 
-<!--<div class="container">-->
-<!--    <table class="ui sortable celled table">-->
-<!--  <thead>-->
-<!--    <tr>-->
-<!--      <th class="sorted descending">Name</th>-->
-<!--      <th>Usn</th>-->
-<!--      <th>Area</th>-->
-<!--      <th>last modified</th>-->
-<!--    </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-    
-<!--    <% for (let row of res.rows) { %>-->
-    <!--<%= JSON.stringify(row) %>-->
-<!--  <tr>-->
-<!--      <td><%= row.title %></td>-->
-<!--      <td><%= row["lusn"] %></td>-->
-<!--      <td><%= row["area"] %></td>-->
-<!--      <td><%= row["submission"] %></td>-->
-<!--  </tr>-->
-<!--  <% } %>-->
-  <!--<tr>-->
-  <!--    <td>Jill</td>-->
-  <!--    <td class="negative">Denied</td>-->
-  <!--    <td>None</td>-->
-  <!--  </tr>-->
-  <!--  <tr>-->
-  <!--    <td>Jamie</td>-->
-  <!--    <td class="positive">Approved</td>-->
-  <!--    <td class="warning">Requires call</td>-->
-  <!--  </tr>-->
-  <!--  </tbody>-->
-  <!--<tfoot>-->
-  <!--  <tr><th>3 People</th>-->
-  <!--  <th>2 Approved</th>-->
-  <!--  <th></th>-->
-  <!--</tr></tfoot>-->
-<!--</table>-->
-<!--</div>-->
 
 
 

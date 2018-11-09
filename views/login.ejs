@@ -12,22 +12,22 @@
     <div class="ui placeholder segment">
       <div class="ui two column relaxed stackable grid">
         <div class="column">
-          <form method='post' action="" class="ui form">
+          <form method='post' action="/" class="ui form">
             <div class="field">
               <label>Username</label>
               <div class="ui left icon input">
-                <input type="text" placeholder="Username">
+                <input  name ="usn" type="text" placeholder="Username" required>
                 <i class="user icon"></i>
               </div>
             </div>
             <div class="field">
               <label>Password</label>
               <div class="ui left icon input">
-                <input type="password">
+                <input name="password" type="password" required>
                 <i class="lock icon"></i>
               </div>
             </div>
-            <div class="ui blue submit button">Login</div>
+            <button type="submit" class="ui blue submit button">Login</button>
           </form>
         </div>
         <div class="middle aligned column">
@@ -59,43 +59,3 @@
 
 
 
-
-<!--<div class="container">-->
-<!--    <table class="ui sortable celled table">-->
-<!--  <thead>-->
-<!--    <tr>-->
-<!--      <th class="sorted descending">Name</th>-->
-<!--      <th>Usn</th>-->
-<!--      <th>Area</th>-->
-<!--      <th>last modified</th>-->
-<!--    </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-    
-<!--    <% for (let row of res.rows) { %>-->
-<!--    <%= JSON.stringify(row) %>-->
-<!--  <tr>-->
-      <!--<td><%= row["title"] %></td>-->
-      <!--<td><%= row["lusn"] %></td>-->
-      <!--<td><%= row["area"] %></td>-->
-      <!--<td><%= row["submission"] %></td>-->
-<!--  </tr>-->
-  <!--<% } %>-->
-  <!--<tr>-->
-  <!--    <td>Jill</td>-->
-  <!--    <td class="negative">Denied</td>-->
-  <!--    <td>None</td>-->
-  <!--  </tr>-->
-  <!--  <tr>-->
-  <!--    <td>Jamie</td>-->
-  <!--    <td class="positive">Approved</td>-->
-  <!--    <td class="warning">Requires call</td>-->
-  <!--  </tr>-->
-<!--    </tbody>-->
-  <!--<tfoot>-->
-  <!--  <tr><th>3 People</th>-->
-  <!--  <th>2 Approved</th>-->
-  <!--  <th></th>-->
-  <!--</tr></tfoot>-->
-<!--</table>-->
-<!--</div>-->

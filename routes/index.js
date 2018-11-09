@@ -41,6 +41,7 @@ router.get("/",(req,res)=>{
 })
 router.get("/logout",function(req,res){
     console.log("hurray")
+    req.flash('success','logged out !')
     req.logOut();
     res.redirect("/");
 })
