@@ -29,4 +29,5 @@
 // $(document).ready(function(){
 //   setTimeout(function(){$("#flash_message").fadeOut();}, 1000);
 //   $(document).click(function(){$("#flash_messsage").fadeOut();});
-// });
+
+alert("hey boi")

@@ -4,11 +4,19 @@
 
 <% if(result.lusn == currentUser.id) { %>
 <a class="btn btn-primary" href="/projects/<%= result.pid %>/edit" >Edit project</a>
+
 <form method='post' action="/projects/<%= result.pid %>?_method=DELETE">
   <input class="hidden" name="pid" value="<%= result.pid %>" >
   <input class="btn btn-danger" type="submit" value="delete" >
 </form>
+
+<form method='post' action="/team/<%= result.pid %>">
+  <input class="hidden" name="pid" value="<%= result.pid %>" >
+  <input class="form-control" type="text" name="usn" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" placeholder="usn" required>
+  <input class="btn btn-primary" type="submit" value="add member" >
+</form>
 <% } %>
+
 
 
 <div class="container">
@@ -16,7 +24,15 @@
         <%= JSON.stringify(result) %>
          <div class="container">
         <% team.rows.forEach(function(row){ %>
-            <li><a href="/student/<%= row.usn %>"><%= row.usn %></a>and average total = <%= row.marks %></li>
+            <li><a href="/student/<%= row.usn %>"><%= row.usn %></a>and average total = <%= row.marks %>
+              <% if(result.lusn == currentUser.id && row.usn!=result.lusn){ %>
+              <form method='post' action="/team/<%= result.pid %>?_method=DELETE">
+                <input class="hidden" name="pid" value="<%= result.pid %>" >
+                <input class="hidden" name="usn" value="<%= row.usn %>" minlength="10" maxlength="10" placeholder="usn" required>
+                <input class="btn btn-danger" type="submit" value="delete member" >
+              </form>
+              <% } %>
+            </li>
         <% }) %>
     </div>
     <div class="segment">
@@ -130,9 +146,26 @@
 
 
 
+<!--<div class="ui tabular menu">-->
+<!--  <div class="item" data-tab="tab-name">Tab Name</div>-->
+<!--  <div class="item" data-tab="tab-name2">Tab Name 2</div>-->
+<!--</div>-->
+<!--<div class="ui tab" data-tab="tab-name">-->
+<!-- hey-->
+<!--</div>-->
+<!--<div class="ui tab" data-tab="tab-name2">-->
+<!--   Tab Content !-->
+<!--</div>-->
 
 
-<script type="text/javascript" src="/public/main.js"></script>
+
+<!--<script>-->
+<!--  $('.tabular.menu .item').tab();-->
+<!--</script>-->
+
+
+
+<!--<script type="text/javascript" src="/public/main.js"></script>-->
 <% include ../partials/footer %>
 
 
