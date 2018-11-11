@@ -102,26 +102,27 @@ app.use("/projects",projectRoute);
 app.use("/team",teamRoute);
 app.use("/marks",marksRoute);
 
-app.get("/login",(req,res)=>{
-    res.render("login");
-})
+// app.get("/login",(req,res)=>{
+//     res.render("login");
+// })
 
-app.post("/",passport.authenticate("local",
-{
-    // successRedirect : "/projects",
-    failureRedirect : "/login"
-}), function(req,res){
-    console.log(req.user)
-    req.flash("success","logged in")
-    if(req.user.type == 'student')
-        res.redirect("/student/"+req.body.usn)
-    else res.redirect("/teacher/"+req.body.usn)
-});
+// app.post("/",passport.authenticate("local",
+// {
+//     // successRedirect : "/projects",
+//     failureRedirect : "/login"
+// }), function(req,res){
+//     console.log(req.user)
+//     req.flash("success","logged in")
+//     if(req.user.type == 'student')
+//         res.redirect("/student/"+req.body.usn)
+//     else res.redirect("/teacher/"+req.body.usn)
+// });
 
 
 
 app.get('*',function(req,res){
-    res.send("under construction");
+    // req.flash("error","path is not defined")
+    res.send("wrong path");
 })
 
 

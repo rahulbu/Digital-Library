@@ -16,8 +16,10 @@ router.post("/:pid",middleware.checkTeacher,(req,res)=>{
     db.query(query,values,(err,result)=>{
         if(err){
             console.log(err.detail);
+            req.flash("error",err.detail);
             res.redirect("back");
         } else {
+           req.flash("success","marks added")
            res.redirect(req.get('referer'));
            // res.redirect("back")
         }
@@ -37,9 +39,11 @@ router.put("/:pid",middleware.checkTeacher,(req,res)=>{
     db.query(query,values,(err,result)=>{
         if(err){
             console.log(err.detail);
+            req.flash("error",err.detail);
             res.redirect("back");
         } else {
             console.log("yes marks")
+            req.flash("success","marks updated")
            res.redirect("/projects/"+pid)
            // res.redirect("back")
         }
@@ -56,9 +60,11 @@ router.delete("/:pid", middleware.checkTeacher ,(req,res)=>{
     db.query(query,values,(err,result)=>{
         if(err){
             console.log(err);
+            req.flash("error",err.detail);
             res.redirect("back");
         } else {
             console.log("deleted")
+            req.flash("success","removed marks")
           res.redirect(req.get('referer'));
             // res.redirect("back")
         }

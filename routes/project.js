@@ -8,7 +8,11 @@ const router = require("express").Router(),
 // })
 router.get("/",(req,res)=>{
     db.query('SELECT * from project', (err, result) => {
-      if (err) console.log(err);
+      if (err) {
+        console.log(err);
+        req.flash("error",err.detail);
+        res.redirect("/");
+      }
       else     
         res.render("projects/index",{res : result});
     });
@@ -19,6 +23,7 @@ router.get("/",(req,res)=>{
 router.get("/new",middleware.checkStudent ,(req,res)=>{
     res.render("projects/new");
 })
+
 router.post("/new",middleware.checkStudent,(req,res)=>{
   const lusn = req.body.lusn,
         title = req.body.title,
@@ -32,8 +37,15 @@ router.post("/new",middleware.checkStudent,(req,res)=>{
   const query = "insert into project(lusn,title,description,details,report,supervision,area) values($1,$2,$3,$4,$5,$6,$7)";
   console.log(values);
   db.query(query,values,function(err,result){
-    if(err) console.log(err);
-    else res.redirect("/student/"+req.user.id);
+    if(err) {
+      console.log(err);
+        req.flash("error",err.detail);
+        res.redirect("back");
+    }
+    else {
+      req.flash("success","project added.")
+      res.redirect("/student/"+req.user.id);
+    }
   })
 })
 
@@ -68,6 +80,7 @@ router.get("/:id/edit",middleware.checkStudent,(req,res)=>{
       else {
         if(result.rows[0].lusn != req.user.id){
           console.log("wrong author")
+          req.flash("error","you're not authorized")
           res.redirect("/projects/"+id);
         } else {
           res.render("projects/edit",{pro : result.rows[0]})
@@ -89,8 +102,15 @@ router.put("/:id",middleware.checkStudent, (req,res)=>{
   const query = "update project set title=$1 , description=$2 , details=$3 ,report=$4 , supervision=$5 ,area=$6 where pid = $7";
   console.log(values);
   db.query(query,values,function(err,result){
-    if(err) console.log(err);
-    else res.redirect("/projects/"+req.params.id);
+    if(err) {
+      console.log(err);
+      req.flash("error",err.detail);
+     res.redirect("back");
+    }
+    else {
+      req.flash("success","project updated")
+      res.redirect("/projects/"+req.params.id);
+    }
   })
 })
 
@@ -104,10 +124,11 @@ router.delete("/:id",middleware.checkStudent,(req,res)=>{
     db.query(query,values,(err,result)=>{
         if(err){
             console.log(err.detail);
+            req.flash("error",err.detail)
             res.redirect("back");
         } else {
             console.log("deleted")
-        
+            req.flash("success","project deleted")
             res.redirect("/student/"+req.user.id);
         }
     })

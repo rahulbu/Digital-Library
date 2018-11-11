@@ -9,13 +9,13 @@ router.get("/",(req,res)=>{
 // router.post("/",(req,res)=>{
 //     res.redirect("/teacher/"+req.body.username);
 // })
-router.post("/",passport.authenticate("local",
-{
-    // successRedirect : "/projects",
-    failureRedirect : "/"
-}), function(req,res){
-    res.redirect("/teacher/"+req.body.usn)
-});
+// router.post("/",passport.authenticate("local",
+// {
+//     // successRedirect : "/projects",
+//     failureRedirect : "/"
+// }), function(req,res){
+//     res.redirect("/teacher/"+req.body.usn)
+// });
 
 router.get("/new",(req,res)=>{
     res.render("teacher/new");
@@ -36,11 +36,13 @@ router.post("/new",(req,res)=>{
         console.log("yo");
         if(err) {
             console.log(err);
+            req.flash("error",err.detail)
             res.redirect("/teacher/new");
         }
         else{ console.log("yo yo")
             passport.authenticate("local")(req,res,function(){
             console.log("i am here")
+            req.flash("success","welcome !!")
             res.redirect("/teacher/"+req.user.id);
         })
             }
@@ -90,8 +92,14 @@ router.put("/:id",middleware.checkTeacher, (req,res)=>{
               values = [branch,name,email,phone,password,usn];
       
       client.query(query,values,(err,result)=>{
-          if(err) res.redirect("/teacher");
-          else res.redirect("/teacher/"+req.params.id);
+          if(err) {
+              req.flash("error",err.detail)
+              res.redirect("/teacher");
+          }
+          else {
+              req.flash("success","updated details")
+              res.redirect("/teacher/"+req.params.id);
+          }
       })
 })
 

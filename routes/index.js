@@ -1,4 +1,5 @@
 const router = require("express").Router(),
+      passport = require("passport"),
       client = require("./../db/index") ;
 
 // const { Client } = require('pg');
@@ -39,9 +40,26 @@ router.get("/",(req,res)=>{
 });
     // res.render("index");
 })
+
+router.get("/login",(req,res)=>{
+    res.render("login");
+})
+
+router.post("/",passport.authenticate("local",
+{
+    // successRedirect : "/projects",
+    failureRedirect : "/login"
+}), function(req,res){
+    console.log(req.user)
+    req.flash("success","Logged In !!")
+    if(req.user.type == 'student')
+        res.redirect("/student/"+req.body.usn)
+    else res.redirect("/teacher/"+req.body.usn)
+});
+
 router.get("/logout",function(req,res){
     console.log("hurray")
-    req.flash('success','logged out !')
+    req.flash('success','Logged Out !')
     req.logOut();
     res.redirect("/");
 })

@@ -12,8 +12,10 @@ router.post("/:pid",middleware.checkStudent,(req,res)=>{
     db.query(query,values,(err,result)=>{
         if(err){
             console.log(err.detail);
+            req.flash("error",err.detail)
             res.redirect("back");
         } else {
+            req.flash("success","added to team")
            res.redirect(req.get('referer'));
             // res.redirect("/projects/"+pid);
         }
@@ -29,9 +31,11 @@ router.delete("/:pid", middleware.checkStudent ,(req,res)=>{
     db.query(query,values,(err,result)=>{
         if(err){
             console.log(err);
+            req.flash("error",err.detail)
             res.redirect("back");
         } else {
             console.log("deleted")
+            req.flash("success","removed from team")
           res.redirect(req.get('referer'));
             // res.redirect("back")
         }

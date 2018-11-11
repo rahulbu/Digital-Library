@@ -24,13 +24,15 @@ router.get("/",(req,res)=>{
 //     })
 // })
 
-router.post("/",passport.authenticate("local",
-{
-    // successRedirect : "/projects",
-    failureRedirect : "/"
-}), function(req,res){
-    res.redirect("/student/"+req.body.usn)
-});
+// router.post("/",passport.authenticate("local",
+// {
+//     // successRedirect : "/projects",
+//     failureRedirect : "/"
+// }), function(req,res){
+//     res.redirect("/student/"+req.body.usn)
+// });
+
+
 router.get("/new",(req,res)=>{
     res.render("student/new");
 })
@@ -55,9 +57,11 @@ router.post("/new",(req,res)=>{
     client.query(query,values,(err,result)=>{
         if(err) {
             console.log(err);
+            req.flash("error",err.detail)
             res.redirect("/student/new");
         }
         else passport.authenticate("local")(req,res,function(){
+            req.flash("success","Welcome !!")
             res.redirect("/student/"+req.user.id);
         })
             // console.log(result.rows[0]);
@@ -107,8 +111,12 @@ router.put("/:id",middleware.checkStudent,(req,res)=>{
       
       client.query(query,values,(err,result)=>{
           if(err){ console.log(err);
+             req.flash("error",err.detail)
               res.redirect("/student");}
-          else res.redirect("/student/"+req.params.id);
+          else {
+              req.flash("success","updated details")
+              res.redirect("/student/"+req.params.id);
+          }
       })
 })
 
