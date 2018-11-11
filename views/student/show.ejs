@@ -1,23 +1,117 @@
 <% include ../partials/header %>
 
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <li id="profile" class="list-group-item active">Profile</li>
+                <li id="projects" class="list-group-item">Projects</li>
+            </div>
+        </div>
+        <div class="col-md-9" style="background-color:white; padding:10px;">
+            <div id="proSeg">
+              <div>
+                <img class="ui centered medium circular image" src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d">
+              </div>
+              <div >
+                  <h1 style="text-align:center;"><%= student.name %></h1>
+              </div>
+              
+              <% if(student.usn == currentUser.id) { %>
+              <div class="pull-right">
+                <a class="btn btn-primary" href="/student/<%= currentUser.id %>/edit">Edit profile</a>
+              </div>
+              <% } %>
+              <div>
+                  <!--<%= JSON.stringify(student) %>-->
+                  <div class="ui one column doubling stackable grid container">
+                      <div class="column">
+                        
+                            <h1>USN : <%= student.usn %></h1>
+                        
+                      </div>
+                      <div class="column">
+                        <h2>Branch : <%= student.branch %></h2>
+                      </div>
+                      <div class="column">
+                        <h2>Email : <%= student.email %></h2>
+                      </div>
+                      <div class="column">
+                        <h2>Phone : <%= student.phone %></h2>
+                      </div>
+                    </div>
+              </div>
+              
+            </div>
+            <div id="projSeg" class="hidden">
+            
+              <% if(student.usn == currentUser.id) { %>
+              <div class="pull-right" style="padding:10px 10px;">
+                <a class="btn btn-primary" href="/projects/new">Add Project</a></a>
+             </div>
+              <% } %>
+    
+                
+            <div>    
+                <table class="ui inverted black table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Average Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <% projects.rows.forEach(function(row){ %>
+                    <tr>
+                      <td><a href="/projects/<%= row.pid %>"><h4 style="color:white;"><%= row.title %></h4></a></td>
+                      <td><%= row.marks %></td>
+                    </tr>
+                    <% }); %>
+                    
+                  </tbody>
+                </table>
+            </div>                    
+                
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>student show page</h1>
 
-<% if(student.usn == currentUser.id) { %>
-<a class="btn btn-primary" href="/student/<%= currentUser.id %>/edit">Edit profile</a>
-
-
-<a class="btn btn-primary" href="/projects/new">add Project</a></a>
-<% } %>
-
-<%= JSON.stringify(student) %>
-
-<br>
-<% projects.rows.forEach(function(row){ %>
-    <li><%= JSON.stringify(row) %></li>
-<% }) %>
-
+<script>
+	var profile=document.getElementById("profile");
+// 	var valued=document.getElementById("valued");
+	var proSeg=document.getElementById("proSeg");
+// 	var valSeg=document.getElementById("valSeg");
+	var projSeg=document.getElementById("projSeg");
+	var projects=document.getElementById("projects");
+	profile.addEventListener("click",function(){
+		profile.classList.add("active");
+// 		valued.classList.remove("active");
+		projects.classList.remove("active");
+// 		valSeg.classList.add("hidden");
+		proSeg.classList.remove("hidden");
+		projSeg.classList.add("hidden")
+	})
+// 	valued.addEventListener("click",function(){
+// 		profile.classList.remove("active");
+// 		valued.classList.add("active");
+// 		projects.classList.remove("active");
+// 		valSeg.classList.remove("hidden");
+// 		proSeg.classList.add("hidden");
+// 		projSeg.classList.add("hidden")
+// 	})
+	projects.addEventListener("click",function(){
+		profile.classList.remove("active");
+// 		valued.classList.remove("active");
+		projects.classList.add("active");
+// 		valSeg.classList.add("hidden");
+		proSeg.classList.add("hidden");
+		projSeg.classList.remove("hidden")
+	})
+</script>
 
 
 

@@ -5,11 +5,8 @@
         
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         
-        <script
-  src="https://code.jquery.com/jquery-2.1.4.min.js"
-  integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw="
-  crossorigin="anonymous"></script>
-        
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js" integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -81,26 +78,8 @@
             <span class="icon-bar"></span>
           </button>
                     <a class="navbar-brand" href="/">Home</a>
-                    <!--<a class="navbar-brand" href="/student" >student</a>-->
                     <a class="navbar-brand" href="/projects">Projects</a>
-                   <!--<span class="text-center navbar-text ">-->
-                   <!--      <div id="flash_message">   -->
-                   <!--         <% if(error && error.length > 0){ %>-->
-                            <!--<div class="container">-->
-                                <!--<div class="alert alert-danger" role = "alert">-->
-                   <!--                 <%= error %>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                   <!--         <% } %>-->
-                   <!--         <% if(success && success.length > 0) { %>-->
-                            <!--<div class="container">-->
-                                <!--<div class="alert alert-success" role = "alert">-->
-                   <!--                 <%= success %>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                   <!--         <% } %>-->
-                   <!--     </div>                   -->
-                   <!--</span>-->
+    
                 </div>
                 
                     
@@ -129,18 +108,18 @@
             </div>
         </nav>
             
-     <div id="flash_message">   
+     <div>   
         <% if(error && error.length > 0){ %>
         <!--<div class="container">-->
-            <div class="alert alert-danger" role = "alert">
-                <h4><%= error %></h4>
+            <div id="flash_message" class="alert alert-danger" role = "alert">
+                <h5  style="text-align:center;"><%= error %></h5>
             </div>
         <!--</div>-->
         <% } %>
         <% if(success && success.length > 0) { %>
         <!--<div class="container">-->
-            <div class="alert alert-success" role = "alert">
-                <h4><%= success %></h4>
+            <div id="flash_message" class="alert alert-success" role = "alert">
+                <h5 style="text-align:center;"><%= success %></h5>
             </div>
         <!--</div>-->
         <% } %>

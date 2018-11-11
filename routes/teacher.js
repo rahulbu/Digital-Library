@@ -61,7 +61,7 @@ router.get("/:id",middleware.checkTeacher ,(req,res)=>{
             client.query("select t.*, p.title, s.name from team t, project p, student s where t.pid = p.pid and t.usn=s.usn",[],function(err,team){
                 if(err) console.log(err);
                 else {
-                    client.query("select m.*, s.name, p.title from marks m, project p, student s where m.pid=p.pid and m.usn=s.usn order by m.valued_by",[],(err,valued)=>{
+                    client.query("select m.*, s.name, p.title from marks m, project p, student s where m.pid=p.pid and m.usn=s.usn and m.valued_by=$1",[usn],(err,valued)=>{
                         if(err) console.log(err);
                         else res.render("teacher/show",{teacher : result.rows[0], team : team, valued : valued});
                     })

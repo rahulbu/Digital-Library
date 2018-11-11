@@ -1,172 +1,285 @@
 <% include ../partials/header %>
 
-<h1>project show page</h1>
-
-<% if(result.lusn == currentUser.id) { %>
-<a class="btn btn-primary" href="/projects/<%= result.pid %>/edit" >Edit project</a>
-
-<form method='post' action="/projects/<%= result.pid %>?_method=DELETE">
-  <input class="hidden" name="pid" value="<%= result.pid %>" >
-  <input class="btn btn-danger" type="submit" value="delete" >
-</form>
-
-<form method='post' action="/team/<%= result.pid %>">
-  <input class="hidden" name="pid" value="<%= result.pid %>" >
-  <input class="form-control" type="text" name="usn" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" placeholder="usn" required>
-  <input class="btn btn-primary" type="submit" value="add member" >
-</form>
-<% } %>
-
-
 
 <div class="container">
-   
-        <%= JSON.stringify(result) %>
-         <div class="container">
-        <% team.rows.forEach(function(row){ %>
-            <li><a href="/student/<%= row.usn %>"><%= row.usn %></a>and average total = <%= row.marks %>
-              <% if(result.lusn == currentUser.id && row.usn!=result.lusn){ %>
-              <form method='post' action="/team/<%= result.pid %>?_method=DELETE">
-                <input class="hidden" name="pid" value="<%= result.pid %>" >
-                <input class="hidden" name="usn" value="<%= row.usn %>" minlength="10" maxlength="10" placeholder="usn" required>
-                <input class="btn btn-danger" type="submit" value="delete member" >
-              </form>
-              <% } %>
-            </li>
-        <% }) %>
-    </div>
-    <div class="segment">
-        <% for(let member of team.rows){ %>
-            <% for(let mark of marks.rows){ %>
-                <% if(member.usn== mark.usn){ %>
-                <li><%= mark.usn %> and <%= mark.total %> </li>
-            <% } } }%>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <li id="profile" class="list-group-item active">Project</li>
+                <li id="projects" class="list-group-item">Team</li>
+                <li id="valued" class="list-group-item">Marks</li>
+            </div>
+        </div>
+        <div class="col-md-9" style="background-color:white; padding:10px;">
+            
+            
+            <div id="proSeg">
+              <!--<div>-->
+              <!--  <img class="ui centered medium circular image" src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d">-->
+              <!--</div>-->
+              
+              <div>
+                  <h1 style="text-align:center;"><%= result.title %></h1>
+              </div>
+              <br>
+              <hr>
+              <% if(result.lusn == currentUser.id) { %>
+              <div>
+                <a class="btn btn-primary" href="/projects/<%= result.pid %>/edit" >Edit project</a>
+                <div class="pull-right">
+                  <form method='post' action="/projects/<%= result.pid %>?_method=DELETE">
+                    <input class="hidden" name="pid" value="<%= result.pid %>" >
+                    <input class="btn btn-danger" type="submit" value="delete" >
+                  </form>
+                </div>
+              </div>
+               <% } %>
+              
+               <div>
+                  <!--<%= JSON.stringify(result) %>-->
+                  <div class="ui two column doubling stackable grid container">
+
+                      <div class="column">
+                        <h3>Area : <%= result.area %></h3>
+                      </div>
+                      <div class="column">
+                        <h3>Supervised by :<a href="/teacher/<%= result.supervision %>"><%= result.supervision %></a></h3>
+                      </div>
+                      <div class="column">
+                        <h4>Github link : <%= result.details.github %></h4>
+                      </div>
+                      <div class="column">
+                        <h4>website : <%= result.details.website %></h4>
+                      </div>
+                      <div class="column">
+                        <h4>last updated : <%= result.submission.toDateString() %></h4>
+                      </div>
+                  </div>
+                  <div class="ui grid">
+                    <div class="column">
+                    <h3>description : </h3>
+                    <p>
+                      <%= result.description %>
+                    </p>
+                    </div>
+                  </div>
+              </div>
+             
+              
+            </div>
+            
+            <div id="projSeg" class="hidden">
+              <div>
+                 <% if(result.lusn == currentUser.id) { %>
+                    <!--<div class="pull-right" style="padding:10px 10px;">-->
+                    <!--  <button id="addMem" class="btn btn-primary">Add Member</button>-->
+                    <!--</div>-->
+                    <div  style="padding:10px 10px;">
+                      <form id="addForm" method='post' action="/team/<%= result.pid %>">
+                        <input class="hidden" name="pid" value="<%= result.pid %>" >
+                        <input class="field" type="text" name="usn" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" placeholder="usn" required>
+                        <input class="btn btn-primary btn-sm" type="submit" value="Add Member" >
+                      </form>
+                    </div>
+                 <% } %>
+                 <div>
+                   <table class="ui fixed table">
+                     <thead>
+                        <tr>
+                          <th scope="col">USN</th>
+                          <th scope="col">Marks</th>
+                        </tr>
+                     </thead>
+                      <tbody>
+                          <% team.rows.forEach(function(row){ %>
+                              <tr>
+                                <td>
+                                     <a href="/student/<%= row.usn %>"><h4><%= row.usn %></h4></a>
+                                      <% if(result.lusn == currentUser.id && row.usn!=result.lusn){ %>
+                                        <form method='post' action="/team/<%= result.pid %>?_method=DELETE">
+                                          <input class="hidden" name="pid" value="<%= result.pid %>" >
+                                          <input class="hidden" name="usn" value="<%= row.usn %>" minlength="10" maxlength="10" placeholder="usn" required>
+                                         <input class="btn btn-danger" type="submit" value="delete member" >
+                                        </form>
+                                      <% } %>
+                                </td> 
+                                <td><%= row.marks %></td>
+                                
+                              </tr>
+                          <% }) %>
+                      </tbody>
+                   </table>
+                 </div>
+              </div>                    
+            </div>
+            
+            <div id="valSeg" class="hidden"> 
+               
+                <% if(currentUser.type == "teacher") { %>
+                            <div style="padding-bottom:5px;">
+                              <button id="addMarks" class="btn btn-primary btn-sm">add</button>
+                            </div>
+                            <div id="marksForm" class="hidden">
+                              <form action="/marks/<%= result.pid %>" method='post'>
+                                <div class="ui form">
+                                  <div class="inline fields">
+                                    <div class="field">
+                                      <input type="hidden" name="pid" value="<%= result.pid %>" >
+                                    </div>
+                                    <div class="field">
+                                      <select name="usn">
+                                         <% for(let member of team.rows){ %>
+                                         <option value="<%= member.usn %>"><h3><%= member.usn %></h3></option>
+                                         <% } %>
+                                      </select>
+                                    </div>
+                                    <div class="field">
+                                      <input type="number" name="demo" placeholder="demonstration" min="0" max="15" required>
+                                    </div>
+                                    <div class="field">
+                                      <input type="number" name="viva"  placeholder="viva" min="0" max="5" required>
+                                    </div>
+                                    <div class="field">
+                                      <input type="number" name="report" placeholder="report" min="0" max="10" required>
+                                    </div>
+                                    <div class="field">
+                                      <input type="hidden" name="valued" value="<%= currentUser.id %>" >
+                                    </div>
+                                    <input type="submit" class="btn btn-primary" value="submit">
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <% } %>
+                        
+                <div>    
+                    <table class="ui sortable celled table">
+                      <thead>
+                        <tr>
+                          <th>usn</th>
+                          <th>demonstration</th>
+                          <th>viva</th>
+                          <th>report</th>
+                          <th>total</th>
+                          <th>valued_by</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+    
+                        <% for (let row of marks.rows) { %>
+                      <tr>
+                          <td><%= row["usn"] %>
+                    
+                            <%  if(currentUser.id == row.valued_by) { %>
+                            <button id="edit" class="btn btn-primary btn-sm">edit</button>
+                              <form id="editForm" class="hidden" action="/marks/<%= result.pid %>?_method=PUT" method='post'>
+                                <div class="ui form">
+                                  <div class="inline fields">
+                                    <div class="field">
+                                      <input type="hidden" name="pid" value="<%= result.pid %>" >
+                                    </div>
+                                    <div class="field">
+                                      <input class="hidden" value="<%= row.usn %>" name="usn">
+                                    </div>
+                                    <div class="field">
+                                      <input type="number" name="demo" value="<%= row.demonstration %>" min="0" max="15" required>
+                                    </div>
+                                    <div class="field">
+                                      <input type="number" name="viva"  value="<%= row.viva %>" min="0" max="5" required>
+                                    </div>
+                                    <div class="field">
+                                      <input type="number" name="report" value="<%= row.report %>" min="0" max="10" required>
+                                    </div>
+                                    <div class="field">
+                                      <input type="hidden" name="valued" value="<%= currentUser.id %>" >
+                                    </div>
+                                    <input type="submit" class="btn btn-primary" value="submit">
+                                  </div>
+                                </div>
+                              </form>
+                              
+                             
+                              <form method='post' action="/marks/<%= result.pid %>?_method=DELETE">
+                                 <input type="hidden" name="pid" value="<%= result.pid %>" >
+                                  <input type="hidden" name="valued" value="<%= row.valued_by %>" >
+                                 <input type="hidden" name="usn" value="<%= row.usn %>" >
+                                <input type="submit" class="btn btn-danger btn-sm" value="delete">
+                              </form>
+                            <% } %>
+                          </td>
+                          <td><%= row["demonstration"] %></td>
+                          <td><%= row["viva"] %></td>
+                          <td><%= row["report"] %></td>
+                          <td><%= row["total"] %></td>
+                          <td><%= row["valued_by"] %></td>
+                      </tr>
+                      <% } %>
+                    </table>
+                </div> 
+                
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="container">
-    <table class="ui sortable celled table">
-  <thead>
-    <tr>
-      <th>usn</th>
-      <th>demonstration</th>
-      <th>viva</th>
-      <th>report</th>
-      <th>total</th>
-      <th>valued_by</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-    <% if(currentUser.type == "teacher") { %>
-          <button>add</button>
-          <form action="/marks/<%= result.pid %>" method='post'>
-            <div class="ui form">
-              <div class="inline fields">
-                <div class="field">
-                  <input type="hidden" name="pid" value="<%= result.pid %>" >
-                </div>
-                <div class="field">
-                  <select name="usn">
-                     <% for(let member of team.rows){ %>
-                     <option value="<%= member.usn %>"><%= member.usn %></option>
-                     <% } %>
-                  </select>
-                </div>
-                <div class="field">
-                  <input type="number" name="demo" placeholder="demonstration" min="0" max="15">
-                </div>
-                <div class="field">
-                  <input type="number" name="viva"  placeholder="viva" min="0" max="5">
-                </div>
-                <div class="field">
-                  <input type="number" name="report" placeholder="report" min="0" max="10">
-                </div>
-                <div class="field">
-                  <input type="hidden" name="valued" value="<%= currentUser.id %>" >
-                </div>
-                <input type="submit" class="btn btn-primary" value="submit">
-              </div>
-            </div>
-          </form>
-        <% } %>
-    
-    <% for (let row of marks.rows) { %>
-  <tr>
-      <td><%= row["usn"] %>
 
-        <%  if(currentUser.id == row.valued_by) { %>
-        <button>edit</button>
-          <form action="/marks/<%= result.pid %>?_method=PUT" method='post'>
-            <div class="ui form">
-              <div class="inline fields">
-                <div class="field">
-                  <input type="hidden" name="pid" value="<%= result.pid %>" >
-                </div>
-                <div class="field">
-                  <input class="hidden" value="<%= row.usn %>" name="usn">
-                </div>
-                <div class="field">
-                  <input type="number" name="demo" value="<%= row.demonstration %>" min="0" max="15">
-                </div>
-                <div class="field">
-                  <input type="number" name="viva"  value="<%= row.viva %>" min="0" max="5">
-                </div>
-                <div class="field">
-                  <input type="number" name="report" value="<%= row.report %>" min="0" max="10">
-                </div>
-                <div class="field">
-                  <input type="hidden" name="valued" value="<%= currentUser.id %>" >
-                </div>
-                <input type="submit" class="btn btn-primary" value="submit">
-              </div>
-            </div>
-          </form>
-          
-         
-          <form method='post' action="/marks/<%= result.pid %>?_method=DELETE">
-             <input type="hidden" name="pid" value="<%= result.pid %>" >
-              <input type="hidden" name="valued" value="<%= row.valued_by %>" >
-             <input type="hidden" name="usn" value="<%= row.usn %>" >
-            <input type="submit" class="btn btn-danger" value="delete">
-          </form>
-        <% } %>
-      </td>
-      <td><%= row["demonstration"] %></td>
-      <td><%= row["viva"] %></td>
-      <td><%= row["report"] %></td>
-      <td><%= row["total"] %></td>
-      <td><%= row["valued_by"] %></td>
-  </tr>
-  <% } %>
-</table>
-</div>
+<script>
+	var profile=document.getElementById("profile");
+	var valued=document.getElementById("valued");
+	var proSeg=document.getElementById("proSeg");
+	var valSeg=document.getElementById("valSeg");
+	var projSeg=document.getElementById("projSeg");
+	var projects=document.getElementById("projects");
+	profile.addEventListener("click",function(){
+		profile.classList.add("active");
+		valued.classList.remove("active");
+		projects.classList.remove("active");
+		valSeg.classList.add("hidden");
+		proSeg.classList.remove("hidden");
+		projSeg.classList.add("hidden")
+	})
+	valued.addEventListener("click",function(){
+		profile.classList.remove("active");
+		valued.classList.add("active");
+		projects.classList.remove("active");
+		valSeg.classList.remove("hidden");
+		proSeg.classList.add("hidden");
+		projSeg.classList.add("hidden");
+	})
+	projects.addEventListener("click",function(){
+		profile.classList.remove("active");
+		valued.classList.remove("active");
+		projects.classList.add("active");
+		valSeg.classList.add("hidden");
+		proSeg.classList.add("hidden");
+		projSeg.classList.remove("hidden")
+	})
+  
+  var addMarks=document.getElementById("addMarks");
+  var marks=document.getElementById("marksForm");
+  
+  addMarks.addEventListener("click",function(){
+    console.log("clicked")
+    marks.classList.toggle("hidden");
+  })
+  
+  var editMarks=document.getElementById("edit");
+  var emarks=document.getElementById("editForm");
+  
+  editMarks.addEventListener("click",function(){
+    console.log("clicked")
+    emarks.classList.toggle("hidden");
+  })
+  // var addMember=document.getElementById("addMem");
+  // var addForm=document.getElementById("addForm");
+  
+  // addMember.addEventListener("click",function(){
+  //   addForm.classList.toggle("hidden");
+  // })
+  
+  
+</script>
 
 
 
-
-
-<!--<div class="ui tabular menu">-->
-<!--  <div class="item" data-tab="tab-name">Tab Name</div>-->
-<!--  <div class="item" data-tab="tab-name2">Tab Name 2</div>-->
-<!--</div>-->
-<!--<div class="ui tab" data-tab="tab-name">-->
-<!-- hey-->
-<!--</div>-->
-<!--<div class="ui tab" data-tab="tab-name2">-->
-<!--   Tab Content !-->
-<!--</div>-->
-
-
-
-<!--<script>-->
-<!--  $('.tabular.menu .item').tab();-->
-<!--</script>-->
-
-
-
-<!--<script type="text/javascript" src="/public/main.js"></script>-->
 <% include ../partials/footer %>
-
-
-

@@ -1,9 +1,6 @@
 <% include ../partials/header %>
 
 
-<h1>project index page</h1>
-
-
 <div class="container">
     <table class="ui sortable celled table">
   <thead>
@@ -22,7 +19,7 @@
       <td><a href="/projects/<%= row.pid %>"><%= row.title %></a></td>
       <td><a href="/student/<%= row.lusn %>"><%= row["lusn"] %></a></td>
       <td><%= row["area"] %></td>
-      <td><%= row["submission"] %></td>
+      <td><%= row.submission.toDateString() %></td>
   </tr>
   <% } %>
 </table>

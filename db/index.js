@@ -32,6 +32,3 @@ module.exports = {
 
 
 
-
-// Created postgresql-curved-20152 as DATABASE_URL
-// Use heroku addons:docs heroku-postgresql to view documentation

@@ -2,19 +2,150 @@
 
 
 
-<h1>teacher show page</h1>
-<a class="btn btn-primary" href="/teacher/<%= currentUser.id %>/edit">Edit profile</a>
-<%= JSON.stringify(teacher) %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <li id="profile" class="list-group-item active">Profile</li>
+                <li id="projects" class="list-group-item">Unhecked projects</li>
+                <li id="valued" class="list-group-item">Checked projects</li>
+            </div>
+        </div>
+        <div class="col-md-9" style="background-color:white; padding:10px;">
+            <div id="proSeg">
+                <!--<%= JSON.stringify(teacher) %>-->
+              <div>
+                <img class="ui centered medium circular image" src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d">
+              </div>
+              <div >
+                  <h1 style="text-align:center;"><%= teacher.name %></h1>
+              </div>
+              
+              <% if(teacher.id == currentUser.id) { %>
+              <div class="pull-right">
+                <a class="btn btn-primary" href="/teacher/<%= currentUser.id %>/edit">Edit profile</a>
+              </div>
+              <% } %>
+              <div>
+                  <div class="ui one column doubling stackable grid container">
+                      <div class="column">
+                        
+                            <h1>USN : <%= teacher.id %></h1>
+                        
+                      </div>
+                      <div class="column">
+                        <h2>Branch : <%= teacher.branch %></h2>
+                      </div>
+                      <div class="column">
+                        <h2>Email : <%= teacher.email %></h2>
+                      </div>
+                      <div class="column">
+                        <h2>Phone : <%= teacher.phone %></h2>
+                      </div>
+                    </div>
+              </div>
+              
+            </div>
+            <div id="projSeg" class="hidden">
+                
+                <div>    
+                    <table class="ui inverted black table">
+                      <thead>
+                        <tr>
+                          <th scope="col">TITLE</th>
+                          <th scope="col">USN</th>
+                          <th scope="col">STUDENT</th>
+                          <th scope="col">Average Marks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        <% team.rows.forEach(function(row){ %>
+                            <% valued.rows.forEach(function(row1){ %>
+                              <% if(!(row1.pid==row.pid && row1.usn==row.usn)) { %>
+                        <tr>
+                          <td><a href="/projects/<%= row.pid %>"><h4 style="color:white;"><%= row.title %></h4></a></td>
+                          <td><a href="/student/<%= row.usn %>"><%= row.usn %></a></td>
+                          <td><%= row.name %></td>
+                          <td><%= row.marks %></td>
+                        </tr>
+                        <% } })}); %>
+                        
+                      </tbody>
+                    </table>
+                </div>                    
+            </div>
+            
+            <div id="valSeg" class="hidden"> 
+                <!--<% valued.rows.forEach(function(row){ %>-->
+                <!--    <li><%= JSON.stringify(row) %></li>-->
+                <!--<% }) %>-->
+                <div>    
+                    <table class="ui inverted black table">
+                      <thead>
+                        <tr>
+                          <th scope="col">TITLE</th>
+                          <th scope="col">USN</th>
+                          <th scope="col">STUDENT</th>
+                          <th scope="col">Evaluated Marks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        <% valued.rows.forEach(function(row){ %>
+                            <% if(row.valued_by == currentUser.id) { %>
+                        <tr>
+                          <td><a href="/projects/<%= row.pid %>"><h4 style="color:white;"><%= row.title %></h4></a></td>
+                          <td><a href="/student/<%= row.usn %>"><%= row.usn %></a></td>
+                          <td><%= row.name %></td>
+                          <td><%= row.total %></td>
+                        </tr>
+                        <% }}); %>
+                        
+                      </tbody>
+                    </table>
+                </div> 
+                
+            </div>
+        </div>
+    </div>
+</div>
 
-<br>
-<% team.rows.forEach(function(row){ %>
-    <li><%= JSON.stringify(row) %></li>
-<% }) %>
 
-<br>
-<% valued.rows.forEach(function(row){ %>
-    <li><%= JSON.stringify(row) %></li>
-<% }) %>
+<script>
+	var profile=document.getElementById("profile");
+	var valued=document.getElementById("valued");
+	var proSeg=document.getElementById("proSeg");
+	var valSeg=document.getElementById("valSeg");
+	var projSeg=document.getElementById("projSeg");
+	var projects=document.getElementById("projects");
+	profile.addEventListener("click",function(){
+		profile.classList.add("active");
+		valued.classList.remove("active");
+		projects.classList.remove("active");
+		valSeg.classList.add("hidden");
+		proSeg.classList.remove("hidden");
+		projSeg.classList.add("hidden")
+	})
+	valued.addEventListener("click",function(){
+		profile.classList.remove("active");
+		valued.classList.add("active");
+		projects.classList.remove("active");
+		valSeg.classList.remove("hidden");
+		proSeg.classList.add("hidden");
+		projSeg.classList.add("hidden");
+	})
+	projects.addEventListener("click",function(){
+		profile.classList.remove("active");
+		valued.classList.remove("active");
+		projects.classList.add("active");
+		valSeg.classList.add("hidden");
+		proSeg.classList.add("hidden");
+		projSeg.classList.remove("hidden")
+	})
+
+
+</script>
 
 
 <% include ../partials/footer %>
