@@ -52,7 +52,7 @@ router.post("/new",(req,res)=>{
     
 })
 
-router.get("/:id",middleware.checkTeacher ,(req,res)=>{
+router.get("/:id",middleware.isLoggedIn ,(req,res)=>{
     const usn = req.params.id;
     const query = "select * from teacher where id =$1",
           values = [usn];
