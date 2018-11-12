@@ -60,16 +60,16 @@
                       </thead>
                       <tbody>
                         
-                        <% team.rows.forEach(function(row){ %>
-                            <% valued.rows.forEach(function(row1){ %>
-                              <% if(!(row1.pid==row.pid && row1.usn==row.usn)) { %>
+                     
+                            <% team.rows.forEach(function(row){ %>
+                             
                         <tr>
                           <td><a href="/projects/<%= row.pid %>"><h4 style="color:white;"><%= row.title %></h4></a></td>
                           <td><a href="/student/<%= row.usn %>"><%= row.usn %></a></td>
                           <td><%= row.name %></td>
                           <td><%= row.marks %></td>
                         </tr>
-                        <% } })}); %>
+                        <%  }); %>
                         
                       </tbody>
                     </table>

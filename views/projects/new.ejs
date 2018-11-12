@@ -2,7 +2,8 @@
 
 
 <div class="container">
-    <h1>Project Details</h1>
+    <!--<h1 style="text-color:white;">Project Details</h1>-->
+    <div style="width:85%; margin: 25px auto;" >
     <form method='post' action="/projects/new">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -21,7 +22,7 @@
             </div>
         </div>
         <div class="form-row">
-            <input class="form-group form-control" type="text" name="title" placeholder="title" required>
+            <input class="form-group form-control" type="text" name="title" placeholder="Project title" required>
         </div>
         <div class="form-row">
             <div class="form-group">
@@ -41,7 +42,7 @@
                 <input class="form-control" type="url" name="report" placeholder="report link" disabled>
             </div>
             <div class="form-group col-md-6">
-                <input class="form-control" type="text" name="supervision" placeholder="teacher usn"  minlength="10" maxlength="10">
+                <input class="form-control" type="text" name="supervision" placeholder="teacher usn"  minlength="10" maxlength="10" required>
             </div>
         </div>
         
@@ -51,6 +52,7 @@
         </div>
 
     </form>
+    </div>
 </div>
 
 

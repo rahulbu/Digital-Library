@@ -130,4 +130,3 @@ app.listen(process.env.PORT , process.env.IP, ()=>{
     console.log("connected...");
 })
 
-// var DATABASE_URL="postgresql-opaque-90456";

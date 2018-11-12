@@ -30,18 +30,19 @@ router.post("/new",(req,res)=>{
              password = req.body.password;
           
     const values = [name,usn,branch,email,phone,password];
-    console.log(values)
+    // console.log(values)
     const query = "insert into teacher(name,id,branch,email,phone,password) values($1,$2,$3,$4,$5,$6)";
     client.query(query,values,(err,result)=>{
         console.log("yo");
         if(err) {
-            console.log(err);
+            // console.log(err);
             req.flash("error",err.detail)
             res.redirect("/teacher/new");
         }
-        else{ console.log("yo yo")
+        else{ 
+            // console.log("yo yo")
             passport.authenticate("local")(req,res,function(){
-            console.log("i am here")
+            // console.log("i am here")
             req.flash("success","welcome !!")
             res.redirect("/teacher/"+req.user.id);
         })
@@ -58,7 +59,7 @@ router.get("/:id",middleware.checkTeacher ,(req,res)=>{
     client.query(query,values,(err,result)=>{
         if(err) res.redirect("/");
         else{
-            client.query("select t.*, p.title, s.name from team t, project p, student s where t.pid = p.pid and t.usn=s.usn",[],function(err,team){
+            client.query("select t.*, p.title, s.name from team t, project p, student s where (t.pid,t.usn) not in (select m.pid, m.usn from marks m where m.valued_by=$1) and p.pid=t.pid and t.usn=s.usn",[usn],function(err,team){
                 if(err) console.log(err);
                 else {
                     client.query("select m.*, s.name, p.title from marks m, project p, student s where m.pid=p.pid and m.usn=s.usn and m.valued_by=$1",[usn],(err,valued)=>{

@@ -56,7 +56,7 @@ router.post("/new",(req,res)=>{
     const query = "insert into student(name,usn,gender,branch,email,phone,password) values($1,$2,$3,$4,$5,$6,$7) returning *";
     client.query(query,values,(err,result)=>{
         if(err) {
-            console.log(err);
+            // console.log(err);
             req.flash("error",err.detail)
             res.redirect("/student/new");
         }
@@ -93,7 +93,7 @@ router.get("/:id/edit", middleware.checkStudent,(req,res)=>{
           values = [usn];
     const query = "select * from student where usn = $1";
     client.query(query,values,(err,result)=>{
-        console.log(result.rows[0])
+        // console.log(result.rows[0])
         if(err) res.redirect("/student");
         else res.render("student/edit",{student : result.rows[0]});
     })
@@ -110,7 +110,8 @@ router.put("/:id",middleware.checkStudent,(req,res)=>{
       values = [branch,name,gender,email,phone,password,usn];
       
       client.query(query,values,(err,result)=>{
-          if(err){ console.log(err);
+          if(err){ 
+            //   console.log(err);
              req.flash("error",err.detail)
               res.redirect("/student");}
           else {
