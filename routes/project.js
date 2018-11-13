@@ -21,7 +21,17 @@ router.get("/",(req,res)=>{
 
 
 router.get("/new",middleware.checkStudent ,(req,res)=>{
-    res.render("projects/new");
+    db.query("select * from teacher",[],(err,result)=>{
+      if(err) {
+        console.log(err)
+        req.flash("error",err.detail);
+        res.redirect("back");
+      }
+      else{
+        res.render("projects/new",{teachers : result});
+      }
+    })
+    // res.render("projects/new");
 })
 
 router.post("/new",middleware.checkStudent,(req,res)=>{

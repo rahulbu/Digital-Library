@@ -3,7 +3,7 @@
 <style>
   hr{
 	width: 600px;
-	border-top: 4px solid #f8f8f8;
+	border-top: 4px solid grey;
 	border-bottom: 1px solid rgba(0,0,0,0.5)
 }
 </style>
@@ -22,9 +22,7 @@
             
             
             <div id="proSeg">
-              <!--<div>-->
-              <!--  <img class="ui centered medium circular image" src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d">-->
-              <!--</div>-->
+            
               
               <div>
                   <h1 style="text-align:center;"><%= result.title %></h1>
@@ -33,11 +31,11 @@
               <hr>
               <% if(result.lusn == currentUser.id) { %>
               <div>
-                <a class="btn btn-primary" href="/projects/<%= result.pid %>/edit" >Edit project</a>
+                <a class="btn btn-primary" href="/projects/<%= result.pid %>/edit" ><h3>Edit Project</h3></a>
                 <div class="pull-right">
                   <form method='post' action="/projects/<%= result.pid %>?_method=DELETE">
                     <input class="hidden" name="pid" value="<%= result.pid %>" >
-                    <input class="btn btn-danger" type="submit" value="delete" >
+                    <input class="btn btn-danger" type="submit" value="Delete" >
                   </form>
                 </div>
               </div>
@@ -54,20 +52,20 @@
                         <h3>Supervised by :<a href="/teacher/<%= result.supervision %>"><%= result.supervision %></a></h3>
                       </div>
                       <div class="column">
-                        <h4>Github link : <%= result.details.github %></h4>
+                        <h4>Github link :<a target="_blank" href="<%= result.details.github %>"><%= result.details.github %></a></h4>
                       </div>
                       <div class="column">
-                        <h4>website : <%= result.details.website %></h4>
+                        <h4>Website : <a target="_blank" href="<%= result.details.website %>"><%= result.details.website %></a></h4>
                       </div>
                       <div class="column">
-                        <h4>last updated : <%= result.submission.toDateString() %></h4>
+                        <h4>Last Updated : <%= result.submission.toDateString() %></h4>
                       </div>
                   </div>
                   <div class="ui grid">
                     <div class="column">
-                    <h3>description : </h3>
+                    <h3>Description : </h3>
                     <p>
-                      <%= result.description %>
+                     <h4><%= result.description %></h4>
                     </p>
                     </div>
                   </div>
@@ -82,11 +80,11 @@
                     <!--<div class="pull-right" style="padding:10px 10px;">-->
                     <!--  <button id="addMem" class="btn btn-primary">Add Member</button>-->
                     <!--</div>-->
-                    <div  style="padding:10px 10px;">
+                    <div  style="padding:5px 10px;">
                       <form id="addForm" method='post' action="/team/<%= result.pid %>">
                         <input class="hidden" name="pid" value="<%= result.pid %>" >
                         <input class="field" type="text" name="usn" pattern="1(RN|rn)[0-9][0-9][A-Za-z]{2}[0-9]{3}" minlength="10" maxlength="10" placeholder="usn" required>
-                        <input class="btn btn-primary btn-sm" type="submit" value="Add Member" >
+                        <input class="btn btn-primary btn-md" type="submit" value="Add Member" >
                       </form>
                     </div>
                  <% } %>
@@ -104,10 +102,10 @@
                                 <td>
                                      <a href="/student/<%= row.usn %>"><h4><%= row.usn %></h4></a>
                                       <% if(result.lusn == currentUser.id && row.usn!=result.lusn){ %>
-                                        <form method='post' action="/team/<%= result.pid %>?_method=DELETE">
+                                        <form style="padding-top:10px; pading-bottom:0px;" method='post' action="/team/<%= result.pid %>?_method=DELETE">
                                           <input class="hidden" name="pid" value="<%= result.pid %>" >
                                           <input class="hidden" name="usn" value="<%= row.usn %>" minlength="10" maxlength="10" placeholder="usn" required>
-                                         <input class="btn btn-danger" type="submit" value="delete member" >
+                                         <input class="btn btn-danger" type="submit" value="Delete Member" >
                                         </form>
                                       <% } %>
                                 </td> 
@@ -125,7 +123,7 @@
                
                 <% if(currentUser.type == "teacher") { %>
                             <div style="padding-bottom:5px;">
-                              <button id="addMarks" class="btn btn-primary btn-sm">add</button>
+                              <button id="addMarks" class="btn btn-primary btn-sm"><h3>Add</h3></button>
                             </div>
                             <div id="marksForm" class="hidden">
                               <form action="/marks/<%= result.pid %>" method='post'>
@@ -137,7 +135,7 @@
                                     <div class="field">
                                       <select name="usn">
                                          <% for(let member of team.rows){ %>
-                                         <option value="<%= member.usn %>"><h3><%= member.usn %></h3></option>
+                                         <option value="<%= member.usn %>"><h1><%= member.usn %></h1></option>
                                          <% } %>
                                       </select>
                                     </div>
@@ -161,25 +159,25 @@
                             <% } %>
                         
                 <div>    
-                    <table class="ui sortable celled table">
+                    <table class="ui striped table">
                       <thead>
                         <tr>
-                          <th>usn</th>
-                          <th>demonstration</th>
-                          <th>viva</th>
-                          <th>report</th>
-                          <th>total</th>
-                          <th>valued_by</th>
+                          <th>USN</th>
+                          <th>Demonstration</th>
+                          <th>Viva</th>
+                          <th>Report</th>
+                          <th>Total</th>
+                          <th>Valued by</th>
                         </tr>
                       </thead>
                       <tbody>
     
                         <% for (let row of marks.rows) { %>
                       <tr>
-                          <td><%= row["usn"] %>
+                          <td><a href="/student/<%= row["usn"] %>"><%= row["usn"] %></a>            
                     
                             <%  if(currentUser.id == row.valued_by) { %>
-                            <button id="edit" class="btn btn-primary btn-sm">edit</button>
+                            <button  id="edit" class="btn btn-primary btn-sm">Edit</button>
                               <form id="editForm" class="hidden" action="/marks/<%= result.pid %>?_method=PUT" method='post'>
                                 <div class="ui form">
                                   <div class="inline fields">
@@ -211,7 +209,7 @@
                                  <input type="hidden" name="pid" value="<%= result.pid %>" >
                                   <input type="hidden" name="valued" value="<%= row.valued_by %>" >
                                  <input type="hidden" name="usn" value="<%= row.usn %>" >
-                                <input type="submit" class="btn btn-danger btn-sm" value="delete">
+                                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
                               </form>
                             <% } %>
                           </td>
@@ -219,7 +217,7 @@
                           <td><%= row["viva"] %></td>
                           <td><%= row["report"] %></td>
                           <td><%= row["total"] %></td>
-                          <td><%= row["valued_by"] %></td>
+                          <td><a href="/teacher/<%= row["valued_by"] %>"><%= row["valued_by"] %></a></td>
                       </tr>
                       <% } %>
                     </table>

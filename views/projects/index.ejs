@@ -31,7 +31,7 @@
  <% for (let row of res.rows) { %> 
   <div class="ui card">
   <div class="content">
-    <div class="header"><%= row.title %></div>
+    <div class="header"><em><%= row.title %></em></div>
   </div>
   <div class="content">
     <h4 class="ui sub header">Submitted by : <%= row.lusn %></h4>
@@ -53,7 +53,7 @@
     </div>
   </div>
   <div class="extra content">
-    <a class="ui button" href="/projects/<%= row.pid %>">Go To Project</a>
+    <a class="ui button" href="/projects/<%= row.pid %>"><h5>Go To Project <i class="right arrow icon"></i></h5></a>
   </div>
 </div>
   <% } %>

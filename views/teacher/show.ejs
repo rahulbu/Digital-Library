@@ -7,7 +7,7 @@
         <div class="col-md-3">
             <div class="list-group">
                 <li id="profile" class="list-group-item active">Profile</li>
-                <li id="projects" class="list-group-item">Unhecked projects</li>
+                <li id="projects" class="list-group-item">Unchecked projects</li>
                 <li id="valued" class="list-group-item">Checked projects</li>
             </div>
         </div>
@@ -15,7 +15,7 @@
             <div id="proSeg">
                 <!--<%= JSON.stringify(teacher) %>-->
               <div>
-                <img class="ui centered medium circular image" src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d">
+                <img class="ui centered small circular image" src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d">
               </div>
               <div >
                   <h1 style="text-align:center;"><%= teacher.name %></h1>
@@ -23,14 +23,14 @@
               
               <% if(teacher.id == currentUser.id) { %>
               <div class="pull-right">
-                <a class="btn btn-primary" href="/teacher/<%= currentUser.id %>/edit">Edit profile</a>
+                <a class="btn btn-primary" href="/teacher/<%= currentUser.id %>/edit"><h3>Edit Profile</h3></a>
               </div>
               <% } %>
               <div>
                   <div class="ui one column doubling stackable grid container">
                       <div class="column">
                         
-                            <h1>USN : <%= teacher.id %></h1>
+                            <h1>ID : <%= teacher.id %></h1>
                         
                       </div>
                       <div class="column">
