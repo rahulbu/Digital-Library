@@ -21,7 +21,7 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     // password: 'rahul',
     // database:'dbms',
-    ssl:true,
+    // ssl:true,
 })
 
 module.exports = {

@@ -9,7 +9,7 @@ middleware.isLoggedIn = function(req,res, next){
   } else{
     // req.flash("error","you need to be logged in to proceed ...");
     req.flash("error","Login required !")
-    res.redirect("back");
+    res.redirect("/login");
   }
 };
 
