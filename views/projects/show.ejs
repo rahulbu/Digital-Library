@@ -67,7 +67,7 @@
                                   <% } else { %>
                                         <!--<h3>Upload report</h3>-->
                                         <form action="/projects/report/<%= result.pid %>" method="post" enctype="multipart/form-data">
-                                            <input class="btn btn-light" type="file" id="file" name="file" accept=".pdf" />
+                                            <input class="btn btn-light" type="file" id="file" name="file" accept=".pdf" required/>
                                             <input class="btn btn-info" type="submit" value="Upload Report"/>
                                         </form>
                         <% } } %>
