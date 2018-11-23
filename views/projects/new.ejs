@@ -39,9 +39,6 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input class="form-control" type="url" name="report" placeholder="report link" disabled>
-            </div>
-            <div class="form-group col-md-6">
                 <!--<input class="form-control" type="text" name="supervision" placeholder="teacher usn"  minlength="10" maxlength="10" required>-->
                 <select class="form-control" name="supervision">
                     <option value="">Supervisor</option>
@@ -50,9 +47,12 @@
                     <% } %>
                 </select>
             </div>
+            <div class="form-group col-md-6">
+                <input class="hidden" type="url" name="report" placeholder="report link" disabled>
+            </div>
         </div>
         
-        <div class="form-row form-group">
+        <div class="form-row form-group col-md-12">
             <button class="col btn btn-primary" type="submit">Submit</button>
             <button class="col btn btn-danger" type="reset">Reset</button>
         </div>

@@ -60,6 +60,21 @@
                       <div class="column">
                         <h4>Last Updated : <%= result.submission.toDateString() %></h4>
                       </div>
+                      <div class="column">
+                        <% if(result.lusn == currentUser.id) { %>
+                                  <% if(result.report){ %>
+                                        <h5><a class="btn btn-danger" href="/projects/report/<%= result.pid %>/delete">remove report</a></h5>
+                                  <% } else { %>
+                                        <!--<h3>Upload report</h3>-->
+                                        <form action="/projects/report/<%= result.pid %>" method="post" enctype="multipart/form-data">
+                                            <input class="btn btn-light" type="file" id="file" name="file" accept=".pdf" />
+                                            <input class="btn btn-info" type="submit" value="Upload Report"/>
+                                        </form>
+                        <% } } %>
+                        <% if(result.report) { %>
+                        <h5><a class="btn btn-info" target="_blank" href="/projects/report/<%= result.pid %>">Download Report</a></h5>
+                        <% } %>
+                      </div>
                   </div>
                   <div class="ui grid">
                     <div class="column">

@@ -20,7 +20,8 @@ const indexRoute = require("./routes/index"),
       teacherRoute = require("./routes/teacher"),
       teamRoute = require("./routes/team"),
       marksRoute = require("./routes/marks"),
-      studentRoute = require("./routes/student");
+      studentRoute = require("./routes/student"),
+      reportRoute = require("./routes/report");
 
 
 app.use(flash());
@@ -101,6 +102,7 @@ app.use("/student",studentRoute);
 app.use("/projects",projectRoute);
 app.use("/team",teamRoute);
 app.use("/marks",marksRoute);
+app.use("/projects/report",reportRoute);
 
 // app.get("/login",(req,res)=>{
 //     res.render("login");
