@@ -19,9 +19,9 @@ const { Pool } = require('pg')
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    password: 'rahul',
-    database:'dbms',
-    // ssl:true
+    // password: 'rahul',
+    // database:'dbms',
+    ssl:true
 })
 
 module.exports = {
