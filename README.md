@@ -1,4 +1,4 @@
-# Digitsl Library
+# Digital Library
 Technology has become imperative in today’s day to day functioning of every possible
 sector in the society. One of the key contributions of technology has been optimization of
 human effort.
