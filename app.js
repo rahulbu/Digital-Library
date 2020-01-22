@@ -6,12 +6,11 @@ const express = require('express'),
       localStrategy = require('passport-local'),
       expressSanitizer = require('express-sanitizer'),
       flash = require("connect-flash"),
-    //   pgSession = require('connect-pg-simple')(session),
       helmet = require('helmet'),
       db = require('./db/index'),
       app = express();
       
-//  const studentConfig = require('./middleware/studentConfig')(passport,db);
+
 
 app.use(helmet());
 
