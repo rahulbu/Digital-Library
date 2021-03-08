@@ -11,6 +11,6 @@ grade and the projects itself.
   The Database System is well developed, simple and efficient. Thus making
 retrieval and maintenance of the database easier.
 
-https://digital-lib.herokuapp.com/
+https://digital-lib.herokuapp.com/ 
 
 ![Alt Text](websiteScreenshot.png)
